@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+
+    defaultConfig {
+        applicationId "com.bjw.ComAssistant"
+        minSdkVersion 10
+        targetSdkVersion 10
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_5
+            targetCompatibility JavaVersion.VERSION_1_5
+        }
+
+//        sourceSets.main {
+//            jniLibs.srcDir 'src/main/libs'
+//            jni.srcDirs = [] //disable automatic ndk-build call
+//        }
+
+        ndk {
+            moduleName "serial_port"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+//            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compile files('libs/core.jar')
+    compile files('libs/library.jar')
+    compile files('libs/push.jar')
+}
