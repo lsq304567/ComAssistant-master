@@ -719,7 +719,9 @@ public class ComAssistantActivity extends Activity {
 			sMsg.append("[Hex] ");
 			sMsg.append(MyFunc.ByteArrToHex(ComRecData.bRec));
 		}
+
     	sMsg.append("\r\n");
+
     	editTextRecDisp.append(sMsg);
     	iRecLines++;
     	editTextLines.setText(String.valueOf(iRecLines));
