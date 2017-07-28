@@ -706,34 +706,62 @@ public class ComAssistantActivity extends Activity {
     }
     //----------------------------------------------------显示接收数据
     private void DispRecData(ComBean ComRecData){
+		int i;
+
     	StringBuilder sMsg=new StringBuilder();
-    	sMsg.append(ComRecData.sRecTime);
-    	sMsg.append("[");
-    	sMsg.append(ComRecData.sComPort);
-    	sMsg.append("]");
+//    	sMsg.append(ComRecData.sRecTime);
+//    	sMsg.append("[");
+//    	sMsg.append(ComRecData.sComPort);
+//    	sMsg.append("]");
+//		sMsg.append("\r\n");
+//		for (i = 0; i < 1000; i++) {}
+
     	if (radioButtonTxt.isChecked())
 		{
-			sMsg.append("[Txt] ");
+//			sMsg.append("[Txt] ");
 			sMsg.append(new String(ComRecData.bRec));
-		}else if (radioButtonHex.isChecked()) {
-			sMsg.append("[Hex] ");
-			sMsg.append(MyFunc.ByteArrToHex(ComRecData.bRec));
-		}
-		/*等待换行*/
-		int i;
-		for (i = 0; i < 1000; i++) {}
-    	sMsg.append("\r\n");
 
-    	editTextRecDisp.append(sMsg);
-    	iRecLines++;
-    	editTextLines.setText(String.valueOf(iRecLines));
-    	if ((iRecLines > 500) && (checkBoxAutoClear.isChecked()))//达到500项自动清除
-		{
-    		editTextRecDisp.setText("");
-    		editTextLines.setText("0");
-    		iRecLines=0;
+			sMsg.append("\r\n");
+
+			editTextRecDisp.append(sMsg);
+			iRecLines++;
+			editTextLines.setText(String.valueOf(iRecLines));
+			for (i = 0; i < 1000; i++) {}
+			sMsg.append("\r\n");
+
+
+		}else if (radioButtonHex.isChecked()) {
+//			sMsg.append("[Hex] ");
+			sMsg.append(MyFunc.ByteArrToHex(ComRecData.bRec));
+
+			sMsg.append("\r\n");
+
+		/*等待换行*/
+			for (i = 0; i < 1000; i++) {}
+
+			editTextRecDisp.append(sMsg);
+//			sMsg.append("\r\n");
+			iRecLines++;
+
+			editTextLines.setText(String.valueOf(iRecLines));
+//			sMsg.append("\r\n");
+			for (i = 0; i < 1000; i++) {}
+			sMsg.append("\r\n");
+
 		}
-    }
+
+
+
+		if ((iRecLines > 500) && (checkBoxAutoClear.isChecked()))//达到500项自动清除
+		{
+			editTextRecDisp.setText("");
+			editTextLines.setText("0");
+			iRecLines=0;
+//
+		}
+
+
+	}
     //----------------------------------------------------设置自动发送模式开关
     private void SetAutoSend(SerialHelper ComPort,boolean isAutoSend){
     	if (isAutoSend)
