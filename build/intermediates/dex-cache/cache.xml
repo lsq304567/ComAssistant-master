@@ -1,2 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\APP_Projects\ComAssistant-master\app\libs\library.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="b9889756dbaad39c94c36e327a6b03e5eb2d42e3">
+        <dex dex="C:\APP_Projects\ComAssistant-master\app\build\intermediates\pre-dexed\debug\library_cc7c97cde6f3503cbe4689e8653dfd56d17d67c9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\APP_Projects\ComAssistant-master\app\libs\push.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="429a7b59bf178fe4ddbfcb9ab8715ea73b9012cb">
+        <dex dex="C:\APP_Projects\ComAssistant-master\app\build\intermediates\pre-dexed\debug\push_cbf7eb0965b318c852e02781c1ed8341ed3759f1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\APP_Projects\ComAssistant-master\app\libs\core.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="60771a7a1ed9537e36f3ffb78ceb1016886270b1">
+        <dex dex="C:\APP_Projects\ComAssistant-master\app\build\intermediates\pre-dexed\debug\core_26e7e2e33dbb35490a2911545c480cf356226a85.jar" />
+    </item>
+
+</items>

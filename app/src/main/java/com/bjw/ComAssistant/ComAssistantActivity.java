@@ -66,11 +66,15 @@ public class ComAssistantActivity extends Activity {
 	SerialPortFinder mSerialPortFinder;//串口设备搜索
 	AssistBean AssistData;//用于界面数据序列化和反序列化
 	int iRecLines=0;//接收区行数
+	private Button Button485jc_1;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+		Button485jc_1 = (Button) findViewById(R.id.Button485_1);
+
         ComA = new SerialControl();
         ComB = new SerialControl();
         ComC = new SerialControl();
@@ -112,52 +116,52 @@ public class ComAssistantActivity extends Activity {
     //----------------------------------------------------
     private void setControls()
 	{
-    	String appName = getString(R.string.app_name);
-        try {
+		String appName = getString(R.string.app_name);
+		try {
 			PackageInfo pinfo = getPackageManager().getPackageInfo("com.bjw.ComAssistant", PackageManager.GET_CONFIGURATIONS);
 			String versionName = pinfo.versionName;
 //			String versionCode = String.valueOf(pinfo.versionCode);
 			setTitle(appName+" V"+versionName);
-        } catch (NameNotFoundException e) {
-        	e.printStackTrace();
-        }
-    	editTextRecDisp=(EditText)findViewById(R.id.editTextRecDisp);
-    	editTextLines=(EditText)findViewById(R.id.editTextLines);
-    	editTextCOMA=(EditText)findViewById(R.id.editTextCOMA);
-    	editTextCOMB=(EditText)findViewById(R.id.editTextCOMB);
-    	editTextCOMC=(EditText)findViewById(R.id.editTextCOMC);
-    	editTextCOMD=(EditText)findViewById(R.id.editTextCOMD);
-    	editTextTimeCOMA = (EditText)findViewById(R.id.editTextTimeCOMA);
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		editTextRecDisp=(EditText)findViewById(R.id.editTextRecDisp);
+		editTextLines=(EditText)findViewById(R.id.editTextLines);
+		editTextCOMA=(EditText)findViewById(R.id.editTextCOMA);
+		editTextCOMB=(EditText)findViewById(R.id.editTextCOMB);
+		editTextCOMC=(EditText)findViewById(R.id.editTextCOMC);
+		editTextCOMD=(EditText)findViewById(R.id.editTextCOMD);
+		editTextTimeCOMA = (EditText)findViewById(R.id.editTextTimeCOMA);
 		editTextTimeCOMB= (EditText)findViewById(R.id.editTextTimeCOMB);
 		editTextTimeCOMC= (EditText)findViewById(R.id.editTextTimeCOMC);
 		editTextTimeCOMD= (EditText)findViewById(R.id.editTextTimeCOMD);
-    	
-    	checkBoxAutoClear=(CheckBox)findViewById(R.id.checkBoxAutoClear);
+
+		checkBoxAutoClear=(CheckBox)findViewById(R.id.checkBoxAutoClear);
 		checkBoxAutoCOMA=(CheckBox)findViewById(R.id.checkBoxAutoCOMA);
 		checkBoxAutoCOMB=(CheckBox)findViewById(R.id.checkBoxAutoCOMB);
 		checkBoxAutoCOMC=(CheckBox)findViewById(R.id.checkBoxAutoCOMC);
 		checkBoxAutoCOMD=(CheckBox)findViewById(R.id.checkBoxAutoCOMD);
-    	ButtonClear=(Button)findViewById(R.id.ButtonClear);
-    	ButtonSendCOMA=(Button)findViewById(R.id.ButtonSendCOMA);
-    	ButtonSendCOMB=(Button)findViewById(R.id.ButtonSendCOMB);
-    	ButtonSendCOMC=(Button)findViewById(R.id.ButtonSendCOMC);
-    	ButtonSendCOMD=(Button)findViewById(R.id.ButtonSendCOMD);
-    	toggleButtonCOMA=(ToggleButton)findViewById(R.id.toggleButtonCOMA);
-    	toggleButtonCOMB=(ToggleButton)findViewById(R.id.ToggleButtonCOMB);
-    	toggleButtonCOMC=(ToggleButton)findViewById(R.id.ToggleButtonCOMC);
-    	toggleButtonCOMD=(ToggleButton)findViewById(R.id.ToggleButtonCOMD);
-    	SpinnerCOMA=(Spinner)findViewById(R.id.SpinnerCOMA);
-    	SpinnerCOMB=(Spinner)findViewById(R.id.SpinnerCOMB);
-    	SpinnerCOMC=(Spinner)findViewById(R.id.SpinnerCOMC);
-    	SpinnerCOMD=(Spinner)findViewById(R.id.SpinnerCOMD);
-    	SpinnerBaudRateCOMA=(Spinner)findViewById(R.id.SpinnerBaudRateCOMA);
-    	SpinnerBaudRateCOMB=(Spinner)findViewById(R.id.SpinnerBaudRateCOMB);
-    	SpinnerBaudRateCOMC=(Spinner)findViewById(R.id.SpinnerBaudRateCOMC);
-    	SpinnerBaudRateCOMD=(Spinner)findViewById(R.id.SpinnerBaudRateCOMD);
-    	radioButtonTxt=(RadioButton)findViewById(R.id.radioButtonTxt);
-    	radioButtonHex=(RadioButton)findViewById(R.id.radioButtonHex);
-    	
-    	editTextCOMA.setOnEditorActionListener(new EditorActionEvent());
+		ButtonClear=(Button)findViewById(R.id.ButtonClear);
+		ButtonSendCOMA=(Button)findViewById(R.id.ButtonSendCOMA);
+		ButtonSendCOMB=(Button)findViewById(R.id.ButtonSendCOMB);
+		ButtonSendCOMC=(Button)findViewById(R.id.ButtonSendCOMC);
+		ButtonSendCOMD=(Button)findViewById(R.id.ButtonSendCOMD);
+		toggleButtonCOMA=(ToggleButton)findViewById(R.id.toggleButtonCOMA);
+		toggleButtonCOMB=(ToggleButton)findViewById(R.id.ToggleButtonCOMB);
+		toggleButtonCOMC=(ToggleButton)findViewById(R.id.ToggleButtonCOMC);
+		toggleButtonCOMD=(ToggleButton)findViewById(R.id.ToggleButtonCOMD);
+		SpinnerCOMA=(Spinner)findViewById(R.id.SpinnerCOMA);
+		SpinnerCOMB=(Spinner)findViewById(R.id.SpinnerCOMB);
+		SpinnerCOMC=(Spinner)findViewById(R.id.SpinnerCOMC);
+		SpinnerCOMD=(Spinner)findViewById(R.id.SpinnerCOMD);
+		SpinnerBaudRateCOMA=(Spinner)findViewById(R.id.SpinnerBaudRateCOMA);
+		SpinnerBaudRateCOMB=(Spinner)findViewById(R.id.SpinnerBaudRateCOMB);
+		SpinnerBaudRateCOMC=(Spinner)findViewById(R.id.SpinnerBaudRateCOMC);
+		SpinnerBaudRateCOMD=(Spinner)findViewById(R.id.SpinnerBaudRateCOMD);
+		radioButtonTxt=(RadioButton)findViewById(R.id.radioButtonTxt);
+		radioButtonHex=(RadioButton)findViewById(R.id.radioButtonHex);
+
+		editTextCOMA.setOnEditorActionListener(new EditorActionEvent());
 		editTextCOMB.setOnEditorActionListener(new EditorActionEvent());
 		editTextCOMC.setOnEditorActionListener(new EditorActionEvent());
 		editTextCOMD.setOnEditorActionListener(new EditorActionEvent());
@@ -174,37 +178,37 @@ public class ComAssistantActivity extends Activity {
 		editTextTimeCOMC.setOnFocusChangeListener(new FocusChangeEvent());
 		editTextTimeCOMD.setOnFocusChangeListener(new FocusChangeEvent());
 
-    	radioButtonTxt.setOnClickListener(new radioButtonClickEvent());
-    	radioButtonHex.setOnClickListener(new radioButtonClickEvent());
-    	ButtonClear.setOnClickListener(new ButtonClickEvent());
-    	ButtonSendCOMA.setOnClickListener(new ButtonClickEvent());
-    	ButtonSendCOMB.setOnClickListener(new ButtonClickEvent());
-    	ButtonSendCOMC.setOnClickListener(new ButtonClickEvent());
-    	ButtonSendCOMD.setOnClickListener(new ButtonClickEvent());
-    	toggleButtonCOMA.setOnCheckedChangeListener(new ToggleButtonCheckedChangeEvent());
-    	toggleButtonCOMB.setOnCheckedChangeListener(new ToggleButtonCheckedChangeEvent());
-    	toggleButtonCOMC.setOnCheckedChangeListener(new ToggleButtonCheckedChangeEvent());
-    	toggleButtonCOMD.setOnCheckedChangeListener(new ToggleButtonCheckedChangeEvent());
-    	checkBoxAutoCOMA.setOnCheckedChangeListener(new CheckBoxChangeEvent());
-    	checkBoxAutoCOMB.setOnCheckedChangeListener(new CheckBoxChangeEvent());
-    	checkBoxAutoCOMC.setOnCheckedChangeListener(new CheckBoxChangeEvent());
-    	checkBoxAutoCOMD.setOnCheckedChangeListener(new CheckBoxChangeEvent());
-    	
-    	ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, 
-    			R.array.baudrates_value,android.R.layout.simple_spinner_item);
-    	adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    	SpinnerBaudRateCOMA.setAdapter(adapter);
-    	SpinnerBaudRateCOMB.setAdapter(adapter);
-    	SpinnerBaudRateCOMC.setAdapter(adapter);
-    	SpinnerBaudRateCOMD.setAdapter(adapter);
-    	SpinnerBaudRateCOMA.setSelection(12);
-    	SpinnerBaudRateCOMB.setSelection(12);
-    	SpinnerBaudRateCOMC.setSelection(12);
-    	SpinnerBaudRateCOMD.setSelection(12);
-    	
-    	mSerialPortFinder= new SerialPortFinder();
-    	String[] entryValues = mSerialPortFinder.getAllDevicesPath();
-    	List<String> allDevices = new ArrayList<String>();
+		radioButtonTxt.setOnClickListener(new radioButtonClickEvent());
+		radioButtonHex.setOnClickListener(new radioButtonClickEvent());
+		ButtonClear.setOnClickListener(new ButtonClickEvent());
+		ButtonSendCOMA.setOnClickListener(new ButtonClickEvent());
+		ButtonSendCOMB.setOnClickListener(new ButtonClickEvent());
+		ButtonSendCOMC.setOnClickListener(new ButtonClickEvent());
+		ButtonSendCOMD.setOnClickListener(new ButtonClickEvent());
+		toggleButtonCOMA.setOnCheckedChangeListener(new ToggleButtonCheckedChangeEvent());
+		toggleButtonCOMB.setOnCheckedChangeListener(new ToggleButtonCheckedChangeEvent());
+		toggleButtonCOMC.setOnCheckedChangeListener(new ToggleButtonCheckedChangeEvent());
+		toggleButtonCOMD.setOnCheckedChangeListener(new ToggleButtonCheckedChangeEvent());
+		checkBoxAutoCOMA.setOnCheckedChangeListener(new CheckBoxChangeEvent());
+		checkBoxAutoCOMB.setOnCheckedChangeListener(new CheckBoxChangeEvent());
+		checkBoxAutoCOMC.setOnCheckedChangeListener(new CheckBoxChangeEvent());
+		checkBoxAutoCOMD.setOnCheckedChangeListener(new CheckBoxChangeEvent());
+
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+				R.array.baudrates_value,android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		SpinnerBaudRateCOMA.setAdapter(adapter);
+		SpinnerBaudRateCOMB.setAdapter(adapter);
+		SpinnerBaudRateCOMC.setAdapter(adapter);
+		SpinnerBaudRateCOMD.setAdapter(adapter);
+		SpinnerBaudRateCOMA.setSelection(12);
+		SpinnerBaudRateCOMB.setSelection(12);
+		SpinnerBaudRateCOMC.setSelection(12);
+		SpinnerBaudRateCOMD.setSelection(12);
+
+		mSerialPortFinder= new SerialPortFinder();
+		String[] entryValues = mSerialPortFinder.getAllDevicesPath();
+		List<String> allDevices = new ArrayList<String>();
 		for (int i = 0; i < entryValues.length; i++) {
 			allDevices.add(entryValues[i]);
 		}
@@ -774,6 +778,11 @@ public class ComAssistantActivity extends Activity {
 			ShowMessage("打开串口失败:参数错误!");
 		}
     }
+    //------------------------------检测第几块板子 8001009918
+	private void lock485_1() {
+
+	}
+
     //------------------------------------------显示消息
   	private void ShowMessage(String sMsg)
   	{

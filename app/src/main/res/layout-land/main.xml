@@ -2,8 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
+    android:orientation="vertical"
+    >
+
+
     <LinearLayout
         android:id="@+id/LinearLayoutRecDisp"
         android:layout_width="match_parent"
@@ -17,38 +19,46 @@
             android:clickable="false"
             android:gravity="top"
             android:longClickable="false" android:layout_weight="1" android:textSize="14sp" android:editable="false"/>
-
+
+
         <LinearLayout
             android:id="@+id/LinearLayoutRecTool"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-
+
+
             <Button
                 android:id="@+id/ButtonClear"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="清除"/>
-
+
+
             <RadioGroup
                 android:id="@+id/radioGroupOption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
-
+
+
                 <RadioButton
                     android:id="@+id/radioButtonTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:text="Txt" />
-
+
+
                 <RadioButton
                     android:id="@+id/radioButtonHex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hex" />
             </RadioGroup>
-
+
+
+
+
             <EditText
                 android:id="@+id/editTextLines"
                 android:layout_width="match_parent"
@@ -63,7 +73,8 @@
 
                 <requestFocus />
             </EditText>
-
+
+
             <CheckBox
                 android:id="@+id/checkBoxAutoClear"
                 android:layout_width="wrap_content"
@@ -74,38 +85,52 @@
         </LinearLayout>
 
     </LinearLayout>
-
+
+
+
     <LinearLayout
         android:id="@+id/LinearLayoutALLCOM"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1" >
-
+
+
+
+
         <LinearLayout
             android:id="@+id/LinearLayoutCOMA"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical" >
-
+
+
+
             <EditText
                 android:id="@+id/editTextCOMA"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
                 android:gravity="top"
                 android:imeOptions="actionDone" android:layout_weight="1" android:singleLine="true"/>
-
+
+
+
             <LinearLayout
                 android:id="@+id/LinearLayoutTooLCOMA"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
+
+
+
+
                 <Spinner
                     android:id="@+id/SpinnerCOMA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-
+
+
+
                 <LinearLayout
                     android:id="@+id/LinearLayoutOption1COMA"
                     android:layout_width="match_parent"
@@ -125,7 +150,10 @@
                         android:text="ToggleButton" />
 
                 </LinearLayout>
-
+
+
+
+
                 <LinearLayout
                     android:id="@+id/LinearLayoutOption2COMA"
                     android:layout_width="match_parent"
@@ -150,7 +178,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="自动" />
-
+
+
+
+
                     <Button
                         android:id="@+id/ButtonSendCOMA"
                         android:layout_width="wrap_content"
@@ -162,36 +193,55 @@
             </LinearLayout>
 
         </LinearLayout>
-
+
+
+
         <LinearLayout
             android:id="@+id/LinearLayoutCOMB"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical" >
-
+
+
             <EditText
                 android:id="@+id/editTextCOMB"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1" android:gravity="top" android:imeOptions="actionDone" android:singleLine="true"/>
-
+
             <LinearLayout
                 android:id="@+id/LinearLayoutTooLCOMB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
-
+
+
                 <Spinner
                     android:id="@+id/SpinnerCOMB"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-
+
+                <LinearLayout
+                    android:id="@+id/LinearLay485_COMB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical" >
+
+                    <Button
+                        android:id="@+id/Button485_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="检测第几块板子"/>
+
+                </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/LinearLayoutOption1COMB"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical" >
+
 
                     <Spinner
                         android:id="@+id/SpinnerBaudRateCOMB"
@@ -206,7 +256,9 @@
                         android:text="ToggleButton" />
 
                 </LinearLayout>
-
+
+
+
                 <LinearLayout
                     android:id="@+id/LinearLayoutOption2COMB"
                     android:layout_width="match_parent"
@@ -231,7 +283,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="自动" />
-
+
+
+
                     <Button
                         android:id="@+id/ButtonSendCOMB"
                         android:layout_width="wrap_content"
@@ -242,31 +296,38 @@
             </LinearLayout>
 
         </LinearLayout>
-
+
+
+
         <LinearLayout
             android:id="@+id/LinearLayoutCOMC"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical" >
-
+
+
             <EditText
                 android:id="@+id/editTextCOMC"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1" android:gravity="top" android:imeOptions="actionDone" android:singleLine="true"/>
-
+
+
             <LinearLayout
                 android:id="@+id/LinearLayoutTooLCOMC"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
-
+
+
                 <Spinner
                     android:id="@+id/SpinnerCOMC"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-
+
+
+
                 <LinearLayout
                     android:id="@+id/LinearLayoutOption1COMC"
                     android:layout_width="match_parent"
@@ -286,7 +347,9 @@
                         android:text="ToggleButton" />
 
                 </LinearLayout>
-
+
+
+
                 <LinearLayout
                     android:id="@+id/LinearLayoutOption2COMC"
                     android:layout_width="match_parent"
@@ -311,7 +374,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="自动" />
-
+
+
+
                     <Button
                         android:id="@+id/ButtonSendCOMC"
                         android:layout_width="wrap_content"
@@ -322,31 +387,38 @@
             </LinearLayout>
 
         </LinearLayout>
-
+
+
+
         <LinearLayout
             android:id="@+id/LinearLayoutCOMD"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical" >
-
+
+
             <EditText
                 android:id="@+id/editTextCOMD"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1" android:gravity="top" android:imeOptions="actionDone" android:singleLine="true"/>
-
+
+
             <LinearLayout
                 android:id="@+id/LinearLayoutTooLCOMD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
-
+
+
                 <Spinner
                     android:id="@+id/SpinnerCOMD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-
+
+
+
                 <LinearLayout
                     android:id="@+id/LinearLayoutOption1COMD"
                     android:layout_width="match_parent"
@@ -366,7 +438,9 @@
                         android:text="ToggleButton" />
 
                 </LinearLayout>
-
+
+
+
                 <LinearLayout
                     android:id="@+id/LinearLayoutOption2COMD"
                     android:layout_width="match_parent"
@@ -391,7 +465,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="自动" />
-
+
+
+
                     <Button
                         android:id="@+id/ButtonSendCOMD"
                         android:layout_width="wrap_content"
