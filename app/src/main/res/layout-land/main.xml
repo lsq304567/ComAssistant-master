@@ -234,7 +234,13 @@
                         android:layout_height="wrap_content"
                         android:text="检测第几块板子"/>
 
+
                 </LinearLayout>
+                <Button
+                    android:id="@+id/Button485_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="开锁"/>
 
                 <LinearLayout
                     android:id="@+id/LinearLayoutOption1COMB"

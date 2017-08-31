@@ -19,6 +19,7 @@ public final class R {
     }
     public static final class id {
         public static final int Button485_1=0x7f06003d;
+        public static final int Button485_2=0x7f06003e;
         public static final int ButtonClear=0x7f060003;
         public static final int ButtonSendCOMA=0x7f060015;
         public static final int ButtonSendCOMB=0x7f060021;

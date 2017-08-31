@@ -1,20 +1,5 @@
 package com.bjw.ComAssistant;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.security.InvalidParameterException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-
-import com.bjw.bean.AssistBean;
-import com.bjw.bean.ComBean;
-import com.zdp.aseo.content.AseoZdpAseo;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -43,6 +28,22 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import com.bjw.bean.AssistBean;
+import com.bjw.bean.ComBean;
+import com.zdp.aseo.content.AseoZdpAseo;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 import android_serialport_api.SerialPortFinder;
 
 /**
@@ -66,24 +67,68 @@ public class ComAssistantActivity extends Activity {
 	SerialPortFinder mSerialPortFinder;//串口设备搜索
 	AssistBean AssistData;//用于界面数据序列化和反序列化
 	int iRecLines=0;//接收区行数
-	private Button Button485jc_1;
+	private Button Button485jc_1, Button485jc_2;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
 
-		Button485jc_1 = (Button) findViewById(R.id.Button485_1);
+//		Button485jc_1 = (Button) findViewById(R.id.Button485_1);
+//		Button485jc_2 = (Button) findViewById(R.id.Button485_2);
 
-        ComA = new SerialControl();
-        ComB = new SerialControl();
-        ComC = new SerialControl();
-        ComD = new SerialControl();
-        DispQueue = new DispQueueThread();
-        DispQueue.start();
-        AssistData = getAssistData();
-        setControls();
-    }
+		ComA = new SerialControl();
+		ComB = new SerialControl();
+		ComC = new SerialControl();
+		ComD = new SerialControl();
+		DispQueue = new DispQueueThread();
+		DispQueue.start();
+		AssistData = getAssistData();
+		setControls();
+
+		Button485jc_1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+			}
+		});
+
+//			 public void onClick(View v) {
+//				 Button485jc_1.setText("8001009918");
+//			byte[] sendData = {0x80, 0x01, 0x00, 0x99, 0x18};
+//				String[] sendData = {"8001009918"};
+//				outputStream.write(sendData);
+//			outputStream.flush();
+//			SetLoopData(ComB,"8001009918");
+//			ComPort.setHexLoopData("8001009918");
+//			SetAutoSend(ComB,isChecked);
+//				 }
+//			 });
+
+
+//				try {
+//					sp = new SerialPort(new File("/dev/ttymxc6", 9600));
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//
+//				mOutputStream = () sp.getOutputStream();
+//				mInputStream = (FileInputStream) sp.getInputStream();
+//				Toast.makeText(getApplicationContext(), "open", Toas.LENGTH_SHORT).show();
+//			}
+//		});
+//		Button485jc_2.setOnClickListener(new View.View.OnClickListener(){
+//			public void onClick(View v) {
+//				try {
+//					mOutputStream.write(new String("A0#").getBytes());
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//				Toast.makeText(getApplicationContext(), "open", Toas.LENGTH_SHORT).show();
+//			}
+//		});
+	} //onCreate 别误改
+
     @Override
     public void onDestroy(){
     	saveAssistData(AssistData);
@@ -144,6 +189,7 @@ public class ComAssistantActivity extends Activity {
 		ButtonClear=(Button)findViewById(R.id.ButtonClear);
 		ButtonSendCOMA=(Button)findViewById(R.id.ButtonSendCOMA);
 		ButtonSendCOMB=(Button)findViewById(R.id.ButtonSendCOMB);
+		Button485jc_1=(Button)findViewById(R.id.Button485_1);/*--------------------------------------------------------------*/
 		ButtonSendCOMC=(Button)findViewById(R.id.ButtonSendCOMC);
 		ButtonSendCOMD=(Button)findViewById(R.id.ButtonSendCOMD);
 		toggleButtonCOMA=(ToggleButton)findViewById(R.id.toggleButtonCOMA);
@@ -161,7 +207,7 @@ public class ComAssistantActivity extends Activity {
 		radioButtonTxt=(RadioButton)findViewById(R.id.radioButtonTxt);
 		radioButtonHex=(RadioButton)findViewById(R.id.radioButtonHex);
 
-		editTextCOMA.setOnEditorActionListener(new EditorActionEvent());
+		editTextCOMA.setOnEditorActionListener(new EditorActionEvent());/*监听键盘点击事件*/
 		editTextCOMB.setOnEditorActionListener(new EditorActionEvent());
 		editTextCOMC.setOnEditorActionListener(new EditorActionEvent());
 		editTextCOMD.setOnEditorActionListener(new EditorActionEvent());
@@ -169,7 +215,7 @@ public class ComAssistantActivity extends Activity {
 		editTextTimeCOMB.setOnEditorActionListener(new EditorActionEvent());
 		editTextTimeCOMC.setOnEditorActionListener(new EditorActionEvent());
 		editTextTimeCOMD.setOnEditorActionListener(new EditorActionEvent());
-		editTextCOMA.setOnFocusChangeListener(new FocusChangeEvent());
+		editTextCOMA.setOnFocusChangeListener(new FocusChangeEvent());/*焦点*/
 		editTextCOMB.setOnFocusChangeListener(new FocusChangeEvent());
 		editTextCOMC.setOnFocusChangeListener(new FocusChangeEvent());
 		editTextCOMD.setOnFocusChangeListener(new FocusChangeEvent());
@@ -778,10 +824,7 @@ public class ComAssistantActivity extends Activity {
 			ShowMessage("打开串口失败:参数错误!");
 		}
     }
-    //------------------------------检测第几块板子 8001009918
-	private void lock485_1() {
 
-	}
 
     //------------------------------------------显示消息
   	private void ShowMessage(String sMsg)
