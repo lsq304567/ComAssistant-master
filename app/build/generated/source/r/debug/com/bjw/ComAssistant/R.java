@@ -18,9 +18,9 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int Button485_1=0x7f06003d;
-        public static final int Button485_2=0x7f06003e;
+        public static final int ButtonChecklockid=0x7f06003d;
         public static final int ButtonClear=0x7f060003;
+        public static final int ButtonOpenlockid1_1=0x7f06003e;
         public static final int ButtonSendCOMA=0x7f060015;
         public static final int ButtonSendCOMB=0x7f060021;
         public static final int ButtonSendCOMC=0x7f06002e;

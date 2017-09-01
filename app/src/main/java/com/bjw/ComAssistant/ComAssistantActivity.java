@@ -71,7 +71,7 @@ public class ComAssistantActivity extends Activity {
 	EditText editTextTimeCOMA,editTextTimeCOMB;
 	EditText mReception, mEmission;
 	CheckBox checkBoxAutoClear,checkBoxAutoCOMA,checkBoxAutoCOMB;
-	Button ButtonClear,ButtonSendCOMA,ButtonSendCOMB,ButtonChecklock,ButtonOpenlock;
+	Button ButtonClear,ButtonSendCOMA,ButtonSendCOMB,ButtonChecklock,ButtonOpenlock1_1;
 	ToggleButton toggleButtonCOMA,toggleButtonCOMB;
 	Spinner SpinnerCOMA,SpinnerCOMB;
 	Spinner SpinnerBaudRateCOMA,SpinnerBaudRateCOMB;
@@ -114,7 +114,7 @@ public class ComAssistantActivity extends Activity {
             e.printStackTrace ();
         }
 
-		ButtonOpenlock.setOnClickListener(new View.OnClickListener() {
+        ButtonOpenlock1_1.setOnClickListener(new View.OnClickListener() {
             public Object bOutArray;
 
             @Override
@@ -158,7 +158,7 @@ public class ComAssistantActivity extends Activity {
 
                 try
                 {
-                    Log.e ( "TAG", "onclick" );
+                    Log.e ( "TAG", "ButtonOpenlock" );
 
 
                     byte[] buf= new byte[]{(byte) (byte) 0x80, (byte) 0x01,(byte) 0x00, (byte) 0x99, (byte) 0x18};
@@ -176,6 +176,29 @@ public class ComAssistantActivity extends Activity {
                 }
             }
 		});
+        ButtonChecklock.setOnClickListener ( new View.OnClickListener (){
+            @Override
+            public void onClick(View v) {
+                try
+                {
+                    Log.e ( "TAG", "ButtonChecklock" );
+
+
+                    byte[] buf= new byte[]{(byte) (byte) 0x80, (byte) 0x01,(byte) 0x00, (byte) 0x99, (byte) 0x18};
+
+//                    buf = MyFunc.HexToByteArr ( "8A0101119B" );
+                    buf = MyFunc.HexToByteArr ( "8001009918" );
+                    Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+
+                    mOutputStream.write(buf);
+                    mOutputStream.flush ();
+
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        } ) ;
 //				sendPortData(ComB, Button485jc_1.getText().toString());
 
 //			 public void onClick(View v) {
@@ -265,8 +288,8 @@ public class ComAssistantActivity extends Activity {
 		ButtonClear=(Button)findViewById(R.id.ButtonClear);
 		ButtonSendCOMA=(Button)findViewById(R.id.ButtonSendCOMA);
 		ButtonSendCOMB=(Button)findViewById(R.id.ButtonSendCOMB);
-		ButtonChecklock=(Button)findViewById(R.id.Button485_1);/*--------------------------------------------------------------*/
-		ButtonOpenlock=(Button)findViewById(R.id.Button485_2);
+		ButtonChecklock=(Button)findViewById(R.id.ButtonChecklockid);/*--------------------------------------------------------------*/
+        ButtonOpenlock1_1=(Button)findViewById(R.id.ButtonOpenlockid1_1);
 
 		toggleButtonCOMA=(ToggleButton)findViewById(R.id.toggleButtonCOMA);
 		toggleButtonCOMB=(ToggleButton)findViewById(R.id.ToggleButtonCOMB);
@@ -457,10 +480,7 @@ public class ComAssistantActivity extends Activity {
 				}
 				SetLoopData(ComB,editTextCOMB.getText().toString());
 				SetAutoSend(ComB,isChecked);
-			} else if(buttonView == ButtonChecklock){
-                SetLoopData(ComB,editTextCOMB.getText().toString());
-                SetAutoSend(ComB,isChecked);
-            }
+			}
 		}
     }
     //----------------------------------------------------清除按钮、发送按钮
@@ -473,8 +493,6 @@ public class ComAssistantActivity extends Activity {
 				sendPortData(ComA, editTextCOMA.getText().toString());
 			}else if (v== ButtonSendCOMB){
 				sendPortData(ComB, editTextCOMB.getText().toString());
-			}else if (v== ButtonChecklock) {
-
 			}
 		}
     }
