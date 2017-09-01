@@ -15,6 +15,7 @@ import android.text.method.NumberKeyListener;
 import android.text.method.TextKeyListener;
 import android.text.method.TextKeyListener.Capitalize;
 import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,6 +36,7 @@ import com.zdp.aseo.content.AseoZdpAseo;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -44,8 +46,18 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-
+//import java.com.bjw.ComAssistant.*;
+//import com.bjw.ComAssistant.*;
+////private OutputStream mOutputStream;
+//import java.io.BufferedInputStream;
+//import java.io.BufferedOutputStream;
+//import java.io.File;
+//import java.io.FileInputStream;
+//import java.io.FileOutputStream;
+//import java.io.*;
+import android_serialport_api.SerialPort;
 import android_serialport_api.SerialPortFinder;
+
 
 /**
  * serialport api和jni取自http://code.google.com/p/android-serialport-api/
@@ -69,8 +81,16 @@ public class ComAssistantActivity extends Activity {
 	SerialPortFinder mSerialPortFinder;//串口设备搜索
 	AssistBean AssistData;//用于界面数据序列化和反序列化
 	int iRecLines=0;//接收区行数
+    private SerialPort mSerialPort;
+    private OutputStream mOutputStream;
+
+//    EditText mReception;
+//    FileOutputStream mOutputStream;
+//    FileInputStream mInputStream;
+//    SerialPort sp;
 //	private Button Button485jc_1, Button485jc_2;
     /** Called when the activity is first created. */
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -86,9 +106,22 @@ public class ComAssistantActivity extends Activity {
 		AssistData = getAssistData();
 		setControls();
 
-		ButtonChecklock.setOnClickListener(new View.OnClickListener() {
-			@Override
+
+        try {
+            mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), 9600, 0);
+            mOutputStream = mSerialPort.getOutputStream();
+        } catch (IOException e) {
+            e.printStackTrace ();
+        }
+
+		ButtonOpenlock.setOnClickListener(new View.OnClickListener() {
+            public Object bOutArray;
+
+            @Override
 			public void onClick(View v) {
+
+//                ButtonChecklock.setText("8001009918");
+
 //				onDataReceived(ComRecData);
 //				ButtonChecklock.setText("8001009918");
 //				sendPortData(ComB, "8001009918");//没有效果
@@ -110,9 +143,38 @@ public class ComAssistantActivity extends Activity {
 //				mEmission.setText("8001009918");
 //                setSendData();
 //                SetLoopData(ComB, text);
+//				sendPortData(ComB, "8001009918");//没有效果
+//                SetLoopData(ComB,"8001009918");
+//                SetAutoSend(ComB,isChecked);
+//                i = inputStream.read();
+//                outputStream.write(i);
+
+//                sendPortData.ComPort.sendHex.send.mOutputStream.write("8001009918");
+//                inputStream.close();
+//                outputStream.close();public void send(byte[] bOutArray){
+
+//                mOutputStream = mSerialPort.getOutputStream();
 
 
-			}
+                try
+                {
+                    Log.e ( "TAG", "onclick" );
+
+
+                    byte[] buf= new byte[]{(byte) (byte) 0x80, (byte) 0x01,(byte) 0x00, (byte) 0x99, (byte) 0x18};
+
+                    buf = MyFunc.HexToByteArr ( "8A0101119B" );
+//                    buf = MyFunc.HexToByteArr ( "8001009918" );
+                    Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+
+                    mOutputStream.write(buf);
+                    mOutputStream.flush ();
+
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
 		});
 //				sendPortData(ComB, Button485jc_1.getText().toString());
 
@@ -395,7 +457,10 @@ public class ComAssistantActivity extends Activity {
 				}
 				SetLoopData(ComB,editTextCOMB.getText().toString());
 				SetAutoSend(ComB,isChecked);
-			}
+			} else if(buttonView == ButtonChecklock){
+                SetLoopData(ComB,editTextCOMB.getText().toString());
+                SetAutoSend(ComB,isChecked);
+            }
 		}
     }
     //----------------------------------------------------清除按钮、发送按钮

@@ -13,6 +13,7 @@ import android_serialport_api.SerialPort;
  * @author benjaminwan
  *串口辅助工具类
  */
+
 public abstract class SerialHelper{
 	private SerialPort mSerialPort;
 	private OutputStream mOutputStream;
@@ -65,6 +66,7 @@ public abstract class SerialHelper{
 		try
 		{
 			mOutputStream.write(bOutArray);
+
 		} catch (IOException e)
 		{
 			e.printStackTrace();

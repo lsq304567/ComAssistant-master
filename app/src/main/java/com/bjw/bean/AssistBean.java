@@ -9,8 +9,8 @@ import java.io.Serializable;
 public class AssistBean implements Serializable{
 	private static final long serialVersionUID = -5620661009186692227L;
 	private boolean isTxt=true;
-	private String SendTxtA="COMA",SendTxtB="COMB",SendTxtC="COMC",SendTxtD="COMD";
-	private String SendHexA="AA",SendHexB="BB",SendHexC="CC",SendHexD="DD";
+	private String SendTxtA="COMA",SendTxtB="COMB";
+	private String SendHexA="AA",SendHexB="8001009918";
 	public String sTimeA="500";
 	public String sTimeB="500";
 	public String sTimeC="500";
@@ -44,26 +44,7 @@ public class AssistBean implements Serializable{
 			return SendHexB;
 		}
 	}
-	public String getSendC()
-	{
-		if (isTxt)
-		{
-			return SendTxtC;
-		} else
-		{
-			return SendHexC;
-		}
-	}
-	public String getSendD()
-	{
-		if (isTxt)
-		{
-			return SendTxtD;
-		} else
-		{
-			return SendHexD;
-		}
-	}
+
 	
 	public void setSendA(String sendA)
 	{
@@ -87,25 +68,7 @@ public class AssistBean implements Serializable{
 		}
 	}
 	
-	public void setSendC(String sendC)
-	{
-		if (isTxt)
-		{
-			SendTxtC = sendC;
-		} else
-		{
-			SendHexC = sendC;
-		}
-	}
+
 	
-	public void setSendD(String sendD)
-	{
-		if (isTxt)
-		{
-			SendTxtD = sendD;
-		} else
-		{
-			SendHexD = sendD;
-		}
-	}
+
 }
