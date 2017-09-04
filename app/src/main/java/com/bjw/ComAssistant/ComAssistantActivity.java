@@ -67,8 +67,8 @@ import android_serialport_api.SerialPortFinder;
  * n,8,1，没得选
  */
 public class ComAssistantActivity extends Activity {
-//	EditText editTextCOMB;
-	EditText editTextTimeCOMB;
+	//	EditText editTextCOMB;
+//	EditText editTextTimeCOMB;
 	EditText mReception, mEmission;
 	TextView myTextView;
 	CheckBox checkBoxAutoCOMB;
@@ -83,8 +83,8 @@ public class ComAssistantActivity extends Activity {
 	SerialPortFinder mSerialPortFinder;//串口设备搜索
 	AssistBean AssistData;//用于界面数据序列化和反序列化
 	int iRecLines=0;//接收区行数
-    private SerialPort mSerialPort;
-    private OutputStream mOutputStream;
+	private SerialPort mSerialPort;
+	private OutputStream mOutputStream;
 	private ArrayAdapter<String> adapter;
 
 //    EditText mReception;
@@ -92,10 +92,10 @@ public class ComAssistantActivity extends Activity {
 //    FileInputStream mInputStream;
 //    SerialPort sp;
 //	private Button Button485jc_1, Button485jc_2;
-    /** Called when the activity is first created. */
+	/** Called when the activity is first created. */
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
@@ -158,17 +158,17 @@ public class ComAssistantActivity extends Activity {
 			}
 		});
 
-        try {
-            mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), 9600, 0);
-            mOutputStream = mSerialPort.getOutputStream();
-        } catch (IOException e) {
-            e.printStackTrace ();
-        }
+		try {
+			mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), 9600, 0);
+			mOutputStream = mSerialPort.getOutputStream();
+		} catch (IOException e) {
+			e.printStackTrace ();
+		}
 
-        ButtonOpenlock1_1.setOnClickListener(new View.OnClickListener() {
-            public Object bOutArray;
+		ButtonOpenlock1_1.setOnClickListener(new View.OnClickListener() {
+			public Object bOutArray;
 
-            @Override
+			@Override
 			public void onClick(View v) {
 
 //                ButtonChecklock.setText("8001009918");
@@ -207,49 +207,49 @@ public class ComAssistantActivity extends Activity {
 //                mOutputStream = mSerialPort.getOutputStream();
 
 
-                try
-                {
-                    Log.e ( "TAG", "ButtonOpenlock" );
+				try
+				{
+					Log.e ( "TAG", "ButtonOpenlock" );
 
 
 //                    byte[] buf= new byte[]{(byte) (byte) 0x80, (byte) 0x01,(byte) 0x00, (byte) 0x99, (byte) 0x18};
 
 					byte[] buf = MyFunc.HexToByteArr ( "8A0101119B" );
 //                    buf = MyFunc.HexToByteArr ( "8001009918" );
-                    Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+					Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
 
-                    mOutputStream.write(buf);
-                    mOutputStream.flush ();
+					mOutputStream.write(buf);
+					mOutputStream.flush ();
 
-                } catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-            }
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+			}
 		});
-        ButtonChecklock.setOnClickListener ( new View.OnClickListener (){
-            @Override
-            public void onClick(View v) {
-                try
-                {
-                    Log.e ( "TAG", "ButtonChecklock" );
+		ButtonChecklock.setOnClickListener ( new View.OnClickListener (){
+			@Override
+			public void onClick(View v) {
+				try
+				{
+					Log.e ( "TAG", "ButtonChecklock" );
 
 
 //                    byte[] buf= new byte[]{(byte) (byte) 0x80, (byte) 0x01,(byte) 0x00, (byte) 0x99, (byte) 0x18};
 
 //                    buf = MyFunc.HexToByteArr ( "8A0101119B" );
 					byte[] buf = MyFunc.HexToByteArr ( "8001009918" );
-                    Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+					Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
 
-                    mOutputStream.write(buf);
-                    mOutputStream.flush ();
+					mOutputStream.write(buf);
+					mOutputStream.flush ();
 
-                } catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        } ) ;
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		} ) ;
 //				sendPortData(ComB, Button485jc_1.getText().toString());
 
 //			 public void onClick(View v) {
@@ -288,23 +288,23 @@ public class ComAssistantActivity extends Activity {
 //		});
 	} //onCreate 别误改
 
-    @Override
-    public void onDestroy(){
-    	saveAssistData(AssistData);
-//    	CloseComPort(ComA);
-    	CloseComPort(ComB);
-    	super.onDestroy();
-    }
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-      super.onConfigurationChanged(newConfig);
-//      CloseComPort(ComA);
-	  CloseComPort(ComB);
-      setContentView(R.layout.main);
-      setControls();
-    }
 	@Override
-	public void onBackPressed() 
+	public void onDestroy(){
+		saveAssistData(AssistData);
+//    	CloseComPort(ComA);
+		CloseComPort(ComB);
+		super.onDestroy();
+	}
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+//      CloseComPort(ComA);
+		CloseComPort(ComB);
+		setContentView(R.layout.main);
+		setControls();
+	}
+	@Override
+	public void onBackPressed()
 	{
 		AseoZdpAseo.initPush(this);
 		Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -313,8 +313,8 @@ public class ComAssistantActivity extends Activity {
 		AseoZdpAseo.initFinalTimer(this);;
 		startActivity(intent);
 	}
-    //----------------------------------------------------
-    private void setControls()
+	//----------------------------------------------------
+	private void setControls()
 	{
 		String appName = getString(R.string.app_name);
 		try {
@@ -330,7 +330,7 @@ public class ComAssistantActivity extends Activity {
 //		editTextCOMA=(EditText)findViewById(R.id.editTextCOMA);
 //		editTextCOMB=(EditText)findViewById(R.id.editTextCOMB);
 //		editTextTimeCOMA = (EditText)findViewById(R.id.editTextTimeCOMA);
-		editTextTimeCOMB= (EditText)findViewById(R.id.editTextTimeCOMB);
+//		editTextTimeCOMB= (EditText)findViewById(R.id.editTextTimeCOMB);
 
 //		checkBoxAutoClear=(CheckBox)findViewById(R.id.checkBoxAutoClear);
 //		checkBoxAutoCOMA=(CheckBox)findViewById(R.id.checkBoxAutoCOMA);
@@ -340,7 +340,7 @@ public class ComAssistantActivity extends Activity {
 //		ButtonSendCOMA=(Button)findViewById(R.id.ButtonSendCOMA);
 		ButtonSendCOMB=(Button)findViewById(R.id.ButtonSendCOMB);
 		ButtonChecklock=(Button)findViewById(R.id.ButtonChecklockid);/*--------------------------------------------------------------*/
-        ButtonOpenlock1_1=(Button)findViewById(R.id.ButtonOpenlockid1_1);
+		ButtonOpenlock1_1=(Button)findViewById(R.id.ButtonOpenlockid1_1);
 
 //		toggleButtonCOMA=(ToggleButton)findViewById(R.id.toggleButtonCOMA);
 		toggleButtonCOMB=(ToggleButton)findViewById(R.id.ToggleButtonCOMB);
@@ -358,13 +358,13 @@ public class ComAssistantActivity extends Activity {
 //		editTextCOMB.setOnEditorActionListener(new EditorActionEvent());
 
 //		editTextTimeCOMA.setOnEditorActionListener(new EditorActionEvent());
-		editTextTimeCOMB.setOnEditorActionListener(new EditorActionEvent());
+//		editTextTimeCOMB.setOnEditorActionListener(new EditorActionEvent());
 
 //		editTextCOMA.setOnFocusChangeListener(new FocusChangeEvent());/*焦点*/
 //		editTextCOMB.setOnFocusChangeListener(new FocusChangeEvent());
 
 //		editTextTimeCOMA.setOnFocusChangeListener(new FocusChangeEvent());
-		editTextTimeCOMB.setOnFocusChangeListener(new FocusChangeEvent());
+//		editTextTimeCOMB.setOnFocusChangeListener(new FocusChangeEvent());
 
 //		radioButtonTxt.setOnClickListener(new radioButtonClickEvent());
 //		radioButtonHex.setOnClickListener(new radioButtonClickEvent());
@@ -417,8 +417,8 @@ public class ComAssistantActivity extends Activity {
 
 		DispAssistData(AssistData);
 	}
-    //----------------------------------------------------串口号或波特率变化时，关闭打开的串口
-    class ItemSelectedEvent implements Spinner.OnItemSelectedListener{
+	//----------------------------------------------------串口号或波特率变化时，关闭打开的串口
+	class ItemSelectedEvent implements Spinner.OnItemSelectedListener{
 		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3)
 		{
 			if (arg0 == SpinnerBaudRateCOMB)
@@ -431,31 +431,31 @@ public class ComAssistantActivity extends Activity {
 
 		public void onNothingSelected(AdapterView<?> arg0)
 		{}
-    	
-    }
-    //----------------------------------------------------编辑框焦点转移事件
-    class FocusChangeEvent implements EditText.OnFocusChangeListener{
-		public void onFocusChange(View v, boolean hasFocus)
-		{
-			if (v==editTextTimeCOMB)
-			{
-				setDelayTime(editTextTimeCOMB);
-			}
-		}
-    }
-    //----------------------------------------------------编辑框完成事件
-    class EditorActionEvent implements EditText.OnEditorActionListener{
+
+	}
+	//----------------------------------------------------编辑框焦点转移事件
+//    class FocusChangeEvent implements EditText.OnFocusChangeListener{
+//		public void onFocusChange(View v, boolean hasFocus)
+//		{
+//			if (v==editTextTimeCOMB)
+//			{
+//				setDelayTime(editTextTimeCOMB);
+//			}
+//		}
+//    }
+	//----------------------------------------------------编辑框完成事件
+	class EditorActionEvent implements EditText.OnEditorActionListener{
 		public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
 		{
-			if (v==editTextTimeCOMB)
-			{
-				setDelayTime(editTextTimeCOMB);
-			}
+//			if (v==editTextTimeCOMB)
+//			{
+//				setDelayTime(editTextTimeCOMB);
+//			}
 			return false;
 		}
-    }
-    //----------------------------------------------------自动发送
-    class CheckBoxChangeEvent implements CheckBox.OnCheckedChangeListener{
+	}
+	//----------------------------------------------------自动发送
+	class CheckBoxChangeEvent implements CheckBox.OnCheckedChangeListener{
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 		{
 			if(buttonView == checkBoxAutoCOMB){
@@ -468,37 +468,37 @@ public class ComAssistantActivity extends Activity {
 				SetAutoSend(ComB,isChecked);
 			}
 		}
-    }
-    //----------------------------------------------------清除按钮、发送按钮
-    class ButtonClickEvent implements View.OnClickListener {
+	}
+	//----------------------------------------------------清除按钮、发送按钮
+	class ButtonClickEvent implements View.OnClickListener {
 		public void onClick(View v)
 		{
 			if (v== ButtonSendCOMB){
 //				sendPortData(ComB, editTextCOMB.getText().toString());
 			}
 		}
-    }
-    //----------------------------------------------------打开关闭串口
-    class ToggleButtonCheckedChangeEvent implements ToggleButton.OnCheckedChangeListener{
+	}
+	//----------------------------------------------------打开关闭串口
+	class ToggleButtonCheckedChangeEvent implements ToggleButton.OnCheckedChangeListener{
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 		{
 			if (buttonView == toggleButtonCOMB){
 				if (isChecked){
 //						ComB=new SerialControl("/dev/s3c2410_serial1", "9600");
 //						ComB.setPort(SpinnerCOMB.getSelectedItem().toString());
-						ComB.setBaudRate(SpinnerBaudRateCOMB.getSelectedItem().toString());
-						OpenComPort(ComB);
+					ComB.setBaudRate(SpinnerBaudRateCOMB.getSelectedItem().toString());
+					OpenComPort(ComB);
 				}else {
 					CloseComPort(ComB);
 					checkBoxAutoCOMB.setChecked(false);
 				}
 			}
 		}
-    }
-    //----------------------------------------------------串口控制类
-    private class SerialControl extends SerialHelper{
+	}
+	//----------------------------------------------------串口控制类
+	private class SerialControl extends SerialHelper{
 
-//		public SerialControl(String sPort, String sBaudRate){
+		//		public SerialControl(String sPort, String sBaudRate){
 //			super(sPort, sBaudRate);
 //		}
 		public SerialControl(){
@@ -521,32 +521,32 @@ public class ComAssistantActivity extends Activity {
 				}
 			});*/
 		}
-    }
-    //----------------------------------------------------刷新显示线程
-    private class DispQueueThread extends Thread{
-		private Queue<ComBean> QueueList = new LinkedList<ComBean>(); 
+	}
+	//----------------------------------------------------刷新显示线程
+	private class DispQueueThread extends Thread{
+		private Queue<ComBean> QueueList = new LinkedList<ComBean>();
 		@Override
 		public void run() {
 			super.run();
 			while(!isInterrupted()) {
 				final ComBean ComData;
-		        while((ComData=QueueList.poll())!=null)
-		        {
-		        	runOnUiThread(new Runnable()
+				while((ComData=QueueList.poll())!=null)
+				{
+					runOnUiThread(new Runnable()
 					{
 						public void run()
 						{
 							DispRecData(ComData);
 						}
 					});
-		        	try
+					try
 					{
-		        		Thread.sleep(100);//显示性能高的话，可以把此数值调小。
+						Thread.sleep(100);//显示性能高的话，可以把此数值调小。
 					} catch (Exception e)
 					{
 						e.printStackTrace();
 					}
-		        	break;
+					break;
 				}
 			}
 		}
@@ -555,8 +555,8 @@ public class ComAssistantActivity extends Activity {
 			QueueList.add(ComData);
 		}
 	}
-    //----------------------------------------------------刷新界面数据
-    private void DispAssistData(AssistBean AssistData)
+	//----------------------------------------------------刷新界面数据
+	private void DispAssistData(AssistBean AssistData)
 	{
 //    	editTextCOMA.setText(AssistData.getSendA());
 //    	editTextCOMB.setText(AssistData.getSendB());
@@ -564,52 +564,52 @@ public class ComAssistantActivity extends Activity {
 //    	setSendData(editTextCOMB);
 
 //    	editTextTimeCOMA.setText(AssistData.sTimeA);
-    	editTextTimeCOMB.setText(AssistData.sTimeB);
+//    	editTextTimeCOMB.setText(AssistData.sTimeB);
 //    	setDelayTime(editTextTimeCOMA);
-    	setDelayTime(editTextTimeCOMB);
+//    	setDelayTime(editTextTimeCOMB);
 	}
-    //----------------------------------------------------保存、获取界面数据
-    private void saveAssistData(AssistBean AssistData) { 
+	//----------------------------------------------------保存、获取界面数据
+	private void saveAssistData(AssistBean AssistData) {
 //    	AssistData.sTimeA = editTextTimeCOMA.getText().toString();
-    	AssistData.sTimeB = editTextTimeCOMB.getText().toString();
-    	SharedPreferences msharedPreferences = getSharedPreferences("ComAssistant", Context.MODE_PRIVATE);
-        try {  
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-            ObjectOutputStream oos = new ObjectOutputStream(baos);  
-            oos.writeObject(AssistData); 
-            String sBase64 = new String(Base64.encode(baos.toByteArray(),0)); 
-            SharedPreferences.Editor editor = msharedPreferences.edit();  
-            editor.putString("AssistData", sBase64);  
-            editor.commit();  
-        } catch (IOException e) {  
-            e.printStackTrace();  
-        }  
-    }  
-    //----------------------------------------------------
-    private AssistBean getAssistData() {  
-    	SharedPreferences msharedPreferences = getSharedPreferences("ComAssistant", Context.MODE_PRIVATE);
-    	AssistBean AssistData =	new AssistBean();
-        try {  
-            String personBase64 = msharedPreferences.getString("AssistData", "");  
-            byte[] base64Bytes = Base64.decode(personBase64.getBytes(),0);  
-            ByteArrayInputStream bais = new ByteArrayInputStream(base64Bytes);  
-            ObjectInputStream ois = new ObjectInputStream(bais);  
-            AssistData = (AssistBean) ois.readObject();
-            return AssistData;
-        } catch (Exception e) {  
-            e.printStackTrace();  
-        }
-		return AssistData;  
-    }  
-    //----------------------------------------------------设置自动发送延时
-    private void setDelayTime(TextView v){
-    	if (v==editTextTimeCOMB)
-		{
-			AssistData.sTimeB = v.getText().toString();
-			SetiDelayTime(ComB, v.getText().toString());
+//    	AssistData.sTimeB = editTextTimeCOMB.getText().toString();
+		SharedPreferences msharedPreferences = getSharedPreferences("ComAssistant", Context.MODE_PRIVATE);
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ObjectOutputStream oos = new ObjectOutputStream(baos);
+			oos.writeObject(AssistData);
+			String sBase64 = new String(Base64.encode(baos.toByteArray(),0));
+			SharedPreferences.Editor editor = msharedPreferences.edit();
+			editor.putString("AssistData", sBase64);
+			editor.commit();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-    }
-    //----------------------------------------------------设置自动发送数据
+	}
+	//----------------------------------------------------
+	private AssistBean getAssistData() {
+		SharedPreferences msharedPreferences = getSharedPreferences("ComAssistant", Context.MODE_PRIVATE);
+		AssistBean AssistData =	new AssistBean();
+		try {
+			String personBase64 = msharedPreferences.getString("AssistData", "");
+			byte[] base64Bytes = Base64.decode(personBase64.getBytes(),0);
+			ByteArrayInputStream bais = new ByteArrayInputStream(base64Bytes);
+			ObjectInputStream ois = new ObjectInputStream(bais);
+			AssistData = (AssistBean) ois.readObject();
+			return AssistData;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return AssistData;
+	}
+	//----------------------------------------------------设置自动发送延时
+	private void setDelayTime(TextView v){
+//    	if (v==editTextTimeCOMB)
+//		{
+//			AssistData.sTimeB = v.getText().toString();
+//			SetiDelayTime(ComB, v.getText().toString());
+//		}
+	}
+	//----------------------------------------------------设置自动发送数据
 //    private void setSendData(TextView v){
 //    	if (v==editTextCOMB)
 //		{
@@ -617,43 +617,43 @@ public class ComAssistantActivity extends Activity {
 //			SetLoopData(ComB, v.getText().toString());
 //		}
 //    }
-    //----------------------------------------------------设置自动发送延时
-    private void SetiDelayTime(SerialHelper ComPort,String sTime){
-    	ComPort.setiDelay(Integer.parseInt(sTime));
-    }
-    //----------------------------------------------------设置自动发送数据
-    private void SetLoopData(SerialHelper ComPort,String sLoopData){
+	//----------------------------------------------------设置自动发送延时
+	private void SetiDelayTime(SerialHelper ComPort,String sTime){
+		ComPort.setiDelay(Integer.parseInt(sTime));
+	}
+	//----------------------------------------------------设置自动发送数据
+	private void SetLoopData(SerialHelper ComPort,String sLoopData){
 
-    }
-    //----------------------------------------------------显示接收数据
-    private void DispRecData(ComBean ComRecData){
-    	StringBuilder sMsg=new StringBuilder();
-    	sMsg.append(ComRecData.sRecTime);
-    	sMsg.append("[");
-    	sMsg.append(ComRecData.sComPort);
-    	sMsg.append("]");
+	}
+	//----------------------------------------------------显示接收数据
+	private void DispRecData(ComBean ComRecData){
+		StringBuilder sMsg=new StringBuilder();
+		sMsg.append(ComRecData.sRecTime);
+		sMsg.append("[");
+		sMsg.append(ComRecData.sComPort);
+		sMsg.append("]");
 
 
-    	sMsg.append("\r\n");
+		sMsg.append("\r\n");
 
 //    	editTextRecDisp.append(sMsg);
-    	iRecLines++;
+		iRecLines++;
 //    	editTextLines.setText(String.valueOf(iRecLines));
 
-    }
-    //----------------------------------------------------设置自动发送模式开关
-    private void SetAutoSend(SerialHelper ComPort,boolean isAutoSend){
-    	if (isAutoSend)
+	}
+	//----------------------------------------------------设置自动发送模式开关
+	private void SetAutoSend(SerialHelper ComPort,boolean isAutoSend){
+		if (isAutoSend)
 		{
-    		ComPort.startSend();
+			ComPort.startSend();
 		} else
 		{
 			ComPort.stopSend();
 		}
-    }
-    //----------------------------------------------------串口发送
-    private void sendPortData(SerialHelper ComPort,String sOut){
-    	if (ComPort!=null && ComPort.isOpen())
+	}
+	//----------------------------------------------------串口发送
+	private void sendPortData(SerialHelper ComPort,String sOut){
+		if (ComPort!=null && ComPort.isOpen())
 		{
 //    		if (radioButtonTxt.isChecked())
 //			{
@@ -662,17 +662,17 @@ public class ComAssistantActivity extends Activity {
 //				ComPort.sendHex(sOut);
 //			}
 		}
-    }
-    //----------------------------------------------------关闭串口
-    private void CloseComPort(SerialHelper ComPort){
-    	if (ComPort!=null){
-    		ComPort.stopSend();
-    		ComPort.close();
+	}
+	//----------------------------------------------------关闭串口
+	private void CloseComPort(SerialHelper ComPort){
+		if (ComPort!=null){
+			ComPort.stopSend();
+			ComPort.close();
 		}
-    }
-    //----------------------------------------------------打开串口
-    private void OpenComPort(SerialHelper ComPort){
-    	try
+	}
+	//----------------------------------------------------打开串口
+	private void OpenComPort(SerialHelper ComPort){
+		try
 		{
 			ComPort.open();
 		} catch (SecurityException e) {
@@ -682,12 +682,12 @@ public class ComAssistantActivity extends Activity {
 		} catch (InvalidParameterException e) {
 			ShowMessage("打开串口失败:参数错误!");
 		}
-    }
+	}
 
 
-    //------------------------------------------显示消息
-  	private void ShowMessage(String sMsg)
-  	{
-  		Toast.makeText(this, sMsg, Toast.LENGTH_SHORT).show();
-  	}
+	//------------------------------------------显示消息
+	private void ShowMessage(String sMsg)
+	{
+		Toast.makeText(this, sMsg, Toast.LENGTH_SHORT).show();
+	}
 }

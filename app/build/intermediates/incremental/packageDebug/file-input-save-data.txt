@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Mon Sep 04 15:43:55 CST 2017
+#Mon Sep 04 16:58:29 CST 2017
 2.base=C\:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\transforms\\mergeJavaRes\\debug\\jars\\2\\1f\\main.jar
 5.file=C\:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\resources-debug.ap_\\resources.arsc
 5.set=ANDROID_RESOURCE
