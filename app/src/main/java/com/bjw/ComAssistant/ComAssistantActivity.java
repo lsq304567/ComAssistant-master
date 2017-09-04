@@ -74,9 +74,11 @@ public class ComAssistantActivity extends Activity {
 //	CheckBox checkBoxAutoCOMB;
 	Button ButtonChecklock,ButtonOpenlock1_1;
 //	ToggleButton toggleButtonCOMB;
-	Spinner Spinnerlock;
+	Spinner Spinnerlock, Spinnerbps;
 //	Spinner SpinnerBaudRateCOMB;
 	private List<String> list = new ArrayList<String>();
+	private List<String> listbps = new ArrayList<String>();
+
 	RadioButton radioButtonHex;
 //	SerialControl ComB;//4个串口
 //	DispQueueThread DispQueue;//刷新显示线程
@@ -86,6 +88,8 @@ public class ComAssistantActivity extends Activity {
 	private SerialPort mSerialPort;
 	private OutputStream mOutputStream;
 	private ArrayAdapter<String> adapter;
+	private ArrayAdapter<String> adapterbps;
+
 
 //    EditText mReception;
 //    FileOutputStream mOutputStream;
@@ -98,9 +102,6 @@ public class ComAssistantActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
-//		Button485jc_1 = (Button) findViewById(R.id.Button485_1);
-//		Button485jc_2 = (Button) findViewById(R.id.Button485_2);
 
 //		ComA = new SerialControl();
 //		ComB = new SerialControl();
@@ -134,10 +135,25 @@ public class ComAssistantActivity extends Activity {
 		list.add("23");
 		list.add("24");
 
+		listbps.add("9600");
+		listbps.add("14000");
+		listbps.add("19200");
+		listbps.add("38400");
+		listbps.add("57600");
+		listbps.add("115200");
+
+
 		Spinnerlock = (Spinner)findViewById(R.id.SpinnerOpenlockid);
+		Spinnerbps = (Spinner)findViewById(R.id.Spinnerbpsid);
+
 		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, list);
+		adapterbps = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, listbps);
+
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		adapterbps.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 		Spinnerlock.setAdapter(adapter);
+		Spinnerbps.setAdapter(adapterbps);
 
 		myTextView = (TextView) findViewById(R.id.myTextViewid);
 
@@ -157,6 +173,8 @@ public class ComAssistantActivity extends Activity {
 				arg0.setVisibility(View.VISIBLE);
 			}
 		});
+
+
 
 		try {
 			mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), 9600, 0);
