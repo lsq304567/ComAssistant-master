@@ -75,7 +75,7 @@ public class ComAssistantActivity extends Activity {
 	Button ButtonChecklock,ButtonOpenlock1_1;
 	ToggleButton toggleButtonCOMB;
 	Spinner Spinnerlock;
-	Spinner SpinnerBaudRateCOMB;
+//	Spinner SpinnerBaudRateCOMB;
 	private List<String> list = new ArrayList<String>();
 	RadioButton radioButtonHex;
 	SerialControl ComB;//4个串口
@@ -349,7 +349,7 @@ public class ComAssistantActivity extends Activity {
 //		SpinnerCOMB=(Spinner)findViewById(R.id.SpinnerCOMB);
 
 //		SpinnerBaudRateCOMA=(Spinner)findViewById(R.id.SpinnerBaudRateCOMA);
-		SpinnerBaudRateCOMB=(Spinner)findViewById(R.id.SpinnerBaudRateCOMB);
+//		SpinnerBaudRateCOMB=(Spinner)findViewById(R.id.SpinnerBaudRateCOMB);
 
 //		radioButtonTxt=(RadioButton)findViewById(R.id.radioButtonTxt);
 		radioButtonHex=(RadioButton)findViewById(R.id.radioButtonHex);
@@ -382,10 +382,10 @@ public class ComAssistantActivity extends Activity {
 				R.array.baudrates_value,android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //		SpinnerBaudRateCOMA.setAdapter(adapter);
-		SpinnerBaudRateCOMB.setAdapter(adapter);
+//		SpinnerBaudRateCOMB.setAdapter(adapter);
 
 //		SpinnerBaudRateCOMA.setSelection(12);
-		SpinnerBaudRateCOMB.setSelection(12);
+//		SpinnerBaudRateCOMB.setSelection(12);
 
 
 		mSerialPortFinder= new SerialPortFinder();
@@ -413,7 +413,7 @@ public class ComAssistantActivity extends Activity {
 //		SpinnerCOMB.setOnItemSelectedListener(new ItemSelectedEvent());
 
 //		SpinnerBaudRateCOMA.setOnItemSelectedListener(new ItemSelectedEvent());
-		SpinnerBaudRateCOMB.setOnItemSelectedListener(new ItemSelectedEvent());
+//		SpinnerBaudRateCOMB.setOnItemSelectedListener(new ItemSelectedEvent());
 
 		DispAssistData(AssistData);
 	}
@@ -421,12 +421,12 @@ public class ComAssistantActivity extends Activity {
 	class ItemSelectedEvent implements Spinner.OnItemSelectedListener{
 		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3)
 		{
-			if (arg0 == SpinnerBaudRateCOMB)
-			{
-				CloseComPort(ComB);
-//				checkBoxAutoCOMA.setChecked(false);
-				toggleButtonCOMB.setChecked(false);
-			}
+//			if (arg0 == SpinnerBaudRateCOMB)
+//			{
+//				CloseComPort(ComB);
+////				checkBoxAutoCOMA.setChecked(false);
+//				toggleButtonCOMB.setChecked(false);
+//			}
 		}
 
 		public void onNothingSelected(AdapterView<?> arg0)
@@ -486,7 +486,7 @@ public class ComAssistantActivity extends Activity {
 				if (isChecked){
 //						ComB=new SerialControl("/dev/s3c2410_serial1", "9600");
 //						ComB.setPort(SpinnerCOMB.getSelectedItem().toString());
-					ComB.setBaudRate(SpinnerBaudRateCOMB.getSelectedItem().toString());
+//					ComB.setBaudRate(SpinnerBaudRateCOMB.getSelectedItem().toString());
 					OpenComPort(ComB);
 				}else {
 					CloseComPort(ComB);
