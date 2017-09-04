@@ -67,18 +67,18 @@ import android_serialport_api.SerialPortFinder;
  * n,8,1，没得选
  */
 public class ComAssistantActivity extends Activity {
-	EditText editTextRecDisp,editTextLines,editTextCOMA,editTextCOMB;
-	EditText editTextTimeCOMA,editTextTimeCOMB;
+	EditText editTextRecDisp,editTextLines,editTextCOMB;
+	EditText editTextTimeCOMB;
 	EditText mReception, mEmission;
 	TextView myTextView;
-	CheckBox checkBoxAutoClear,checkBoxAutoCOMA,checkBoxAutoCOMB;
-	Button ButtonClear,ButtonSendCOMA,ButtonSendCOMB,ButtonChecklock,ButtonOpenlock1_1;
-	ToggleButton toggleButtonCOMA,toggleButtonCOMB;
-	Spinner SpinnerCOMA,SpinnerCOMB,Spinnerlock;
-	Spinner SpinnerBaudRateCOMA,SpinnerBaudRateCOMB;
+	CheckBox checkBoxAutoClear,checkBoxAutoCOMB;
+	Button ButtonClear,ButtonSendCOMB,ButtonChecklock,ButtonOpenlock1_1;
+	ToggleButton toggleButtonCOMB;
+	Spinner SpinnerCOMB,Spinnerlock;
+	Spinner SpinnerBaudRateCOMB;
 	private List<String> list = new ArrayList<String>();
 	RadioButton radioButtonTxt,radioButtonHex;
-	SerialControl ComA,ComB;//4个串口
+	SerialControl ComB;//4个串口
 	DispQueueThread DispQueue;//刷新显示线程
 	SerialPortFinder mSerialPortFinder;//串口设备搜索
 	AssistBean AssistData;//用于界面数据序列化和反序列化
@@ -102,7 +102,7 @@ public class ComAssistantActivity extends Activity {
 //		Button485jc_1 = (Button) findViewById(R.id.Button485_1);
 //		Button485jc_2 = (Button) findViewById(R.id.Button485_2);
 
-		ComA = new SerialControl();
+//		ComA = new SerialControl();
 		ComB = new SerialControl();
 		DispQueue = new DispQueueThread();
 		DispQueue.start();
@@ -291,14 +291,14 @@ public class ComAssistantActivity extends Activity {
     @Override
     public void onDestroy(){
     	saveAssistData(AssistData);
-    	CloseComPort(ComA);
+//    	CloseComPort(ComA);
     	CloseComPort(ComB);
     	super.onDestroy();
     }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
       super.onConfigurationChanged(newConfig);
-      CloseComPort(ComA);
+//      CloseComPort(ComA);
 	  CloseComPort(ComB);
       setContentView(R.layout.main);
       setControls();
@@ -327,64 +327,64 @@ public class ComAssistantActivity extends Activity {
 		}
 		editTextRecDisp=(EditText)findViewById(R.id.editTextRecDisp);
 		editTextLines=(EditText)findViewById(R.id.editTextLines);
-		editTextCOMA=(EditText)findViewById(R.id.editTextCOMA);
+//		editTextCOMA=(EditText)findViewById(R.id.editTextCOMA);
 		editTextCOMB=(EditText)findViewById(R.id.editTextCOMB);
-		editTextTimeCOMA = (EditText)findViewById(R.id.editTextTimeCOMA);
+//		editTextTimeCOMA = (EditText)findViewById(R.id.editTextTimeCOMA);
 		editTextTimeCOMB= (EditText)findViewById(R.id.editTextTimeCOMB);
 
 		checkBoxAutoClear=(CheckBox)findViewById(R.id.checkBoxAutoClear);
-		checkBoxAutoCOMA=(CheckBox)findViewById(R.id.checkBoxAutoCOMA);
+//		checkBoxAutoCOMA=(CheckBox)findViewById(R.id.checkBoxAutoCOMA);
 		checkBoxAutoCOMB=(CheckBox)findViewById(R.id.checkBoxAutoCOMB);
 
 		ButtonClear=(Button)findViewById(R.id.ButtonClear);
-		ButtonSendCOMA=(Button)findViewById(R.id.ButtonSendCOMA);
+//		ButtonSendCOMA=(Button)findViewById(R.id.ButtonSendCOMA);
 		ButtonSendCOMB=(Button)findViewById(R.id.ButtonSendCOMB);
 		ButtonChecklock=(Button)findViewById(R.id.ButtonChecklockid);/*--------------------------------------------------------------*/
         ButtonOpenlock1_1=(Button)findViewById(R.id.ButtonOpenlockid1_1);
 
-		toggleButtonCOMA=(ToggleButton)findViewById(R.id.toggleButtonCOMA);
+//		toggleButtonCOMA=(ToggleButton)findViewById(R.id.toggleButtonCOMA);
 		toggleButtonCOMB=(ToggleButton)findViewById(R.id.ToggleButtonCOMB);
 
-		SpinnerCOMA=(Spinner)findViewById(R.id.SpinnerCOMA);
+//		SpinnerCOMA=(Spinner)findViewById(R.id.SpinnerCOMA);
 		SpinnerCOMB=(Spinner)findViewById(R.id.SpinnerCOMB);
 
-		SpinnerBaudRateCOMA=(Spinner)findViewById(R.id.SpinnerBaudRateCOMA);
+//		SpinnerBaudRateCOMA=(Spinner)findViewById(R.id.SpinnerBaudRateCOMA);
 		SpinnerBaudRateCOMB=(Spinner)findViewById(R.id.SpinnerBaudRateCOMB);
 
 		radioButtonTxt=(RadioButton)findViewById(R.id.radioButtonTxt);
 		radioButtonHex=(RadioButton)findViewById(R.id.radioButtonHex);
 
-		editTextCOMA.setOnEditorActionListener(new EditorActionEvent());/*监听键盘点击事件*/
+//		editTextCOMA.setOnEditorActionListener(new EditorActionEvent());/*监听键盘点击事件*/
 		editTextCOMB.setOnEditorActionListener(new EditorActionEvent());
 
-		editTextTimeCOMA.setOnEditorActionListener(new EditorActionEvent());
+//		editTextTimeCOMA.setOnEditorActionListener(new EditorActionEvent());
 		editTextTimeCOMB.setOnEditorActionListener(new EditorActionEvent());
 
-		editTextCOMA.setOnFocusChangeListener(new FocusChangeEvent());/*焦点*/
+//		editTextCOMA.setOnFocusChangeListener(new FocusChangeEvent());/*焦点*/
 		editTextCOMB.setOnFocusChangeListener(new FocusChangeEvent());
 
-		editTextTimeCOMA.setOnFocusChangeListener(new FocusChangeEvent());
+//		editTextTimeCOMA.setOnFocusChangeListener(new FocusChangeEvent());
 		editTextTimeCOMB.setOnFocusChangeListener(new FocusChangeEvent());
 
 		radioButtonTxt.setOnClickListener(new radioButtonClickEvent());
 		radioButtonHex.setOnClickListener(new radioButtonClickEvent());
 		ButtonClear.setOnClickListener(new ButtonClickEvent());
-		ButtonSendCOMA.setOnClickListener(new ButtonClickEvent());
+//		ButtonSendCOMA.setOnClickListener(new ButtonClickEvent());
 		ButtonSendCOMB.setOnClickListener(new ButtonClickEvent());
 
-		toggleButtonCOMA.setOnCheckedChangeListener(new ToggleButtonCheckedChangeEvent());
+//		toggleButtonCOMA.setOnCheckedChangeListener(new ToggleButtonCheckedChangeEvent());
 		toggleButtonCOMB.setOnCheckedChangeListener(new ToggleButtonCheckedChangeEvent());
 
-		checkBoxAutoCOMA.setOnCheckedChangeListener(new CheckBoxChangeEvent());
+//		checkBoxAutoCOMA.setOnCheckedChangeListener(new CheckBoxChangeEvent());
 		checkBoxAutoCOMB.setOnCheckedChangeListener(new CheckBoxChangeEvent());
 
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
 				R.array.baudrates_value,android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		SpinnerBaudRateCOMA.setAdapter(adapter);
+//		SpinnerBaudRateCOMA.setAdapter(adapter);
 		SpinnerBaudRateCOMB.setAdapter(adapter);
 
-		SpinnerBaudRateCOMA.setSelection(12);
+//		SpinnerBaudRateCOMA.setSelection(12);
 		SpinnerBaudRateCOMB.setSelection(12);
 
 
@@ -397,22 +397,22 @@ public class ComAssistantActivity extends Activity {
 		ArrayAdapter<String> aspnDevices = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, allDevices);
 		aspnDevices.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		SpinnerCOMA.setAdapter(aspnDevices);
+//		SpinnerCOMA.setAdapter(aspnDevices);
 		SpinnerCOMB.setAdapter(aspnDevices);
 
 		if (allDevices.size()>0)
 		{
-			SpinnerCOMA.setSelection(0);
+//			SpinnerCOMA.setSelection(0);
 		}
 		if (allDevices.size()>1)
 		{
 			SpinnerCOMB.setSelection(1);
 		}
 
-		SpinnerCOMA.setOnItemSelectedListener(new ItemSelectedEvent());
+//		SpinnerCOMA.setOnItemSelectedListener(new ItemSelectedEvent());
 		SpinnerCOMB.setOnItemSelectedListener(new ItemSelectedEvent());
 
-		SpinnerBaudRateCOMA.setOnItemSelectedListener(new ItemSelectedEvent());
+//		SpinnerBaudRateCOMA.setOnItemSelectedListener(new ItemSelectedEvent());
 		SpinnerBaudRateCOMB.setOnItemSelectedListener(new ItemSelectedEvent());
 
 		DispAssistData(AssistData);
@@ -421,15 +421,10 @@ public class ComAssistantActivity extends Activity {
     class ItemSelectedEvent implements Spinner.OnItemSelectedListener{
 		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3)
 		{
-			if ((arg0 == SpinnerCOMA) || (arg0 == SpinnerBaudRateCOMA))
-			{
-				CloseComPort(ComA);
-				checkBoxAutoCOMA.setChecked(false);
-				toggleButtonCOMA.setChecked(false);
-			}else if ((arg0 == SpinnerCOMB) || (arg0 == SpinnerBaudRateCOMB))
+			if ((arg0 == SpinnerCOMB) || (arg0 == SpinnerBaudRateCOMB))
 			{
 				CloseComPort(ComB);
-				checkBoxAutoCOMA.setChecked(false);
+//				checkBoxAutoCOMA.setChecked(false);
 				toggleButtonCOMB.setChecked(false);
 			}
 		}
@@ -442,16 +437,10 @@ public class ComAssistantActivity extends Activity {
     class FocusChangeEvent implements EditText.OnFocusChangeListener{
 		public void onFocusChange(View v, boolean hasFocus)
 		{
-			if (v==editTextCOMA)
-			{
-				setSendData(editTextCOMA);
-			} else if (v==editTextCOMB)
+			if (v==editTextCOMB)
 			{
 				setSendData(editTextCOMB);
-			} else if (v==editTextTimeCOMA)
-			{
-				setDelayTime(editTextTimeCOMA);
-			}else if (v==editTextTimeCOMB)
+			} else if (v==editTextTimeCOMB)
 			{
 				setDelayTime(editTextTimeCOMB);
 			}
@@ -461,16 +450,10 @@ public class ComAssistantActivity extends Activity {
     class EditorActionEvent implements EditText.OnEditorActionListener{
 		public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
 		{
-			if (v==editTextCOMA)
-			{
-				setSendData(editTextCOMA);
-			} else if (v==editTextCOMB)
+			if (v==editTextCOMB)
 			{
 				setSendData(editTextCOMB);
-			} else if (v==editTextTimeCOMA)
-			{
-				setDelayTime(editTextTimeCOMA);
-			}else if (v==editTextTimeCOMB)
+			} else if (v==editTextTimeCOMB)
 			{
 				setDelayTime(editTextTimeCOMB);
 			}
@@ -484,7 +467,7 @@ public class ComAssistantActivity extends Activity {
 			if (v==radioButtonTxt)
 			{
 				KeyListener TxtkeyListener = new TextKeyListener(Capitalize.NONE, false);
-				editTextCOMA.setKeyListener(TxtkeyListener);
+//				editTextCOMA.setKeyListener(TxtkeyListener);
 				editTextCOMB.setKeyListener(TxtkeyListener);
 				AssistData.setTxtMode(true);
 			}else if (v==radioButtonHex) {
@@ -501,13 +484,13 @@ public class ComAssistantActivity extends Activity {
 								'a','b','c','d','e','f','A','B','C','D','E','F'};
 					}
 				};
-				editTextCOMA.setKeyListener(HexkeyListener);
+//				editTextCOMA.setKeyListener(HexkeyListener);
 				editTextCOMB.setKeyListener(HexkeyListener);
 				AssistData.setTxtMode(false);
 			}
-			editTextCOMA.setText(AssistData.getSendA());
+//			editTextCOMA.setText(AssistData.getSendA());
 			editTextCOMB.setText(AssistData.getSendB());
-			setSendData(editTextCOMA);
+//			setSendData(editTextCOMA);
 	    	setSendData(editTextCOMB);
 		}
     }
@@ -515,15 +498,7 @@ public class ComAssistantActivity extends Activity {
     class CheckBoxChangeEvent implements CheckBox.OnCheckedChangeListener{
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 		{
-			if (buttonView == checkBoxAutoCOMA){
-				if (!toggleButtonCOMA.isChecked() && isChecked)
-				{
-					buttonView.setChecked(false);
-					return;
-				}
-				SetLoopData(ComA,editTextCOMA.getText().toString());
-				SetAutoSend(ComA,isChecked);
-			} else if(buttonView == checkBoxAutoCOMB){
+			if(buttonView == checkBoxAutoCOMB){
 				if (!toggleButtonCOMB.isChecked() && isChecked)
 				{
 					buttonView.setChecked(false);
@@ -540,9 +515,7 @@ public class ComAssistantActivity extends Activity {
 		{
 			if (v == ButtonClear){
 				editTextRecDisp.setText("");
-			} else if (v== ButtonSendCOMA){
-				sendPortData(ComA, editTextCOMA.getText().toString());
-			}else if (v== ButtonSendCOMB){
+			} else if (v== ButtonSendCOMB){
 				sendPortData(ComB, editTextCOMB.getText().toString());
 			}
 		}
@@ -551,34 +524,12 @@ public class ComAssistantActivity extends Activity {
     class ToggleButtonCheckedChangeEvent implements ToggleButton.OnCheckedChangeListener{
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 		{
-			if (buttonView == toggleButtonCOMA){
+			if (buttonView == toggleButtonCOMB){
 				if (isChecked){
-					if (toggleButtonCOMB.isChecked() && SpinnerCOMA.getSelectedItemPosition()==SpinnerCOMB.getSelectedItemPosition())
-					{
-						ShowMessage("串口"+SpinnerCOMA.getSelectedItem().toString()+"已打开");
-						buttonView.setChecked(false);
-					}else {
-//						ComA=new SerialControl("/dev/s3c2410_serial0", "9600");
-						ComA.setPort(SpinnerCOMA.getSelectedItem().toString());
-						ComA.setBaudRate(SpinnerBaudRateCOMA.getSelectedItem().toString());
-						OpenComPort(ComA);
-					}
-				}else {
-					CloseComPort(ComA);
-					checkBoxAutoCOMA.setChecked(false);
-				}
-			} else if (buttonView == toggleButtonCOMB){
-				if (isChecked){
-					if (toggleButtonCOMA.isChecked() && SpinnerCOMB.getSelectedItemPosition()==SpinnerCOMA.getSelectedItemPosition())
-					{
-						ShowMessage("串口"+SpinnerCOMB.getSelectedItem().toString()+"已打开");
-						buttonView.setChecked(false);
-					}else {
 //						ComB=new SerialControl("/dev/s3c2410_serial1", "9600");
 						ComB.setPort(SpinnerCOMB.getSelectedItem().toString());
 						ComB.setBaudRate(SpinnerBaudRateCOMB.getSelectedItem().toString());
 						OpenComPort(ComB);
-					}
 				}else {
 					CloseComPort(ComB);
 					checkBoxAutoCOMB.setChecked(false);
@@ -649,9 +600,9 @@ public class ComAssistantActivity extends Activity {
     //----------------------------------------------------刷新界面数据
     private void DispAssistData(AssistBean AssistData)
 	{
-    	editTextCOMA.setText(AssistData.getSendA());
+//    	editTextCOMA.setText(AssistData.getSendA());
     	editTextCOMB.setText(AssistData.getSendB());
-    	setSendData(editTextCOMA);
+//    	setSendData(editTextCOMA);
     	setSendData(editTextCOMB);
     	if (AssistData.isTxt())
 		{
@@ -660,14 +611,14 @@ public class ComAssistantActivity extends Activity {
 		{
 			radioButtonHex.setChecked(true);
 		}
-    	editTextTimeCOMA.setText(AssistData.sTimeA);
+//    	editTextTimeCOMA.setText(AssistData.sTimeA);
     	editTextTimeCOMB.setText(AssistData.sTimeB);
-    	setDelayTime(editTextTimeCOMA);
+//    	setDelayTime(editTextTimeCOMA);
     	setDelayTime(editTextTimeCOMB);
 	}
     //----------------------------------------------------保存、获取界面数据
     private void saveAssistData(AssistBean AssistData) { 
-    	AssistData.sTimeA = editTextTimeCOMA.getText().toString();
+//    	AssistData.sTimeA = editTextTimeCOMA.getText().toString();
     	AssistData.sTimeB = editTextTimeCOMB.getText().toString();
     	SharedPreferences msharedPreferences = getSharedPreferences("ComAssistant", Context.MODE_PRIVATE);
         try {  
@@ -700,11 +651,7 @@ public class ComAssistantActivity extends Activity {
     }  
     //----------------------------------------------------设置自动发送延时
     private void setDelayTime(TextView v){
-    	if (v==editTextTimeCOMA)
-		{
-			AssistData.sTimeA = v.getText().toString();
-			SetiDelayTime(ComA, v.getText().toString());
-		}else if (v==editTextTimeCOMB)
+    	if (v==editTextTimeCOMB)
 		{
 			AssistData.sTimeB = v.getText().toString();
 			SetiDelayTime(ComB, v.getText().toString());
@@ -712,11 +659,7 @@ public class ComAssistantActivity extends Activity {
     }
     //----------------------------------------------------设置自动发送数据
     private void setSendData(TextView v){
-    	if (v==editTextCOMA)
-		{
-			AssistData.setSendA(v.getText().toString());
-			SetLoopData(ComA, v.getText().toString());
-		} else if (v==editTextCOMB)
+    	if (v==editTextCOMB)
 		{
 			AssistData.setSendB(v.getText().toString());
 			SetLoopData(ComB, v.getText().toString());
