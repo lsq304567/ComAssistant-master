@@ -141,11 +141,6 @@
 
 
 
-                    <Button
-                        android:id="@+id/ButtonSendCOMB"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="发送"/>
 
                 </LinearLayout>
             </LinearLayout>

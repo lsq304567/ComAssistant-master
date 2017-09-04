@@ -72,7 +72,7 @@ public class ComAssistantActivity extends Activity {
 	EditText mReception, mEmission;
 	TextView myTextView;
 //	CheckBox checkBoxAutoCOMB;
-	Button ButtonSendCOMB,ButtonChecklock,ButtonOpenlock1_1;
+	Button ButtonChecklock,ButtonOpenlock1_1;
 	ToggleButton toggleButtonCOMB;
 	Spinner Spinnerlock;
 	Spinner SpinnerBaudRateCOMB;
@@ -338,7 +338,7 @@ public class ComAssistantActivity extends Activity {
 
 //		ButtonClear=(Button)findViewById(R.id.ButtonClear);
 //		ButtonSendCOMA=(Button)findViewById(R.id.ButtonSendCOMA);
-		ButtonSendCOMB=(Button)findViewById(R.id.ButtonSendCOMB);
+//		ButtonSendCOMB=(Button)findViewById(R.id.ButtonSendCOMB);
 		ButtonChecklock=(Button)findViewById(R.id.ButtonChecklockid);/*--------------------------------------------------------------*/
 		ButtonOpenlock1_1=(Button)findViewById(R.id.ButtonOpenlockid1_1);
 
@@ -370,7 +370,7 @@ public class ComAssistantActivity extends Activity {
 //		radioButtonHex.setOnClickListener(new radioButtonClickEvent());
 //		ButtonClear.setOnClickListener(new ButtonClickEvent());
 //		ButtonSendCOMA.setOnClickListener(new ButtonClickEvent());
-		ButtonSendCOMB.setOnClickListener(new ButtonClickEvent());
+//		ButtonSendCOMB.setOnClickListener(new ButtonClickEvent());
 
 //		toggleButtonCOMA.setOnCheckedChangeListener(new ToggleButtonCheckedChangeEvent());
 		toggleButtonCOMB.setOnCheckedChangeListener(new ToggleButtonCheckedChangeEvent());
@@ -473,9 +473,9 @@ public class ComAssistantActivity extends Activity {
 	class ButtonClickEvent implements View.OnClickListener {
 		public void onClick(View v)
 		{
-			if (v== ButtonSendCOMB){
+//			if (v== ButtonSendCOMB){
 //				sendPortData(ComB, editTextCOMB.getText().toString());
-			}
+//			}
 		}
 	}
 	//----------------------------------------------------打开关闭串口
