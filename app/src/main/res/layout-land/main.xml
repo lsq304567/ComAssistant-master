@@ -256,7 +256,8 @@
                     android:id="@+id/LinearLayoutOpenid_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical" >
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textViewlock"
@@ -266,14 +267,15 @@
 
                     <Spinner
                         android:id="@+id/SpinnerOpenlockid"
-                        android:layout_width="fill_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         />
                     <Button
                         android:id="@+id/ButtonOpenlockid1_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="开锁第一块板子的第一把锁"/>
+                        android:text="开锁第一块板子的第一把锁"
+                        />
 
 
                 </LinearLayout>
@@ -282,20 +284,23 @@
                     android:id="@+id/LinearLayoutOption1COMB"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical" >
+                    android:gravity="center_vertical"
+                    >
 
 
                     <Spinner
                         android:id="@+id/SpinnerBaudRateCOMB"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        />
 
                     <ToggleButton
                         android:id="@+id/ToggleButtonCOMB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ToggleButton" />
+                        android:text="ToggleButton"
+                        />
 
                 </LinearLayout>
 
