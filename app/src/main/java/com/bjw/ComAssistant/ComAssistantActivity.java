@@ -71,7 +71,7 @@ public class ComAssistantActivity extends Activity {
 //	EditText editTextTimeCOMB;
 	EditText mReception, mEmission;
 	TextView myTextView;
-	CheckBox checkBoxAutoCOMB;
+//	CheckBox checkBoxAutoCOMB;
 	Button ButtonSendCOMB,ButtonChecklock,ButtonOpenlock1_1;
 	ToggleButton toggleButtonCOMB;
 	Spinner Spinnerlock;
@@ -334,7 +334,7 @@ public class ComAssistantActivity extends Activity {
 
 //		checkBoxAutoClear=(CheckBox)findViewById(R.id.checkBoxAutoClear);
 //		checkBoxAutoCOMA=(CheckBox)findViewById(R.id.checkBoxAutoCOMA);
-		checkBoxAutoCOMB=(CheckBox)findViewById(R.id.checkBoxAutoCOMB);
+//		checkBoxAutoCOMB=(CheckBox)findViewById(R.id.checkBoxAutoCOMB);
 
 //		ButtonClear=(Button)findViewById(R.id.ButtonClear);
 //		ButtonSendCOMA=(Button)findViewById(R.id.ButtonSendCOMA);
@@ -376,7 +376,7 @@ public class ComAssistantActivity extends Activity {
 		toggleButtonCOMB.setOnCheckedChangeListener(new ToggleButtonCheckedChangeEvent());
 
 //		checkBoxAutoCOMA.setOnCheckedChangeListener(new CheckBoxChangeEvent());
-		checkBoxAutoCOMB.setOnCheckedChangeListener(new CheckBoxChangeEvent());
+//		checkBoxAutoCOMB.setOnCheckedChangeListener(new CheckBoxChangeEvent());
 
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
 				R.array.baudrates_value,android.R.layout.simple_spinner_item);
@@ -458,15 +458,15 @@ public class ComAssistantActivity extends Activity {
 	class CheckBoxChangeEvent implements CheckBox.OnCheckedChangeListener{
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 		{
-			if(buttonView == checkBoxAutoCOMB){
-				if (!toggleButtonCOMB.isChecked() && isChecked)
-				{
-					buttonView.setChecked(false);
-					return;
-				}
-//				SetLoopData(ComB,editTextCOMB.getText().toString());
-				SetAutoSend(ComB,isChecked);
-			}
+//			if(buttonView == checkBoxAutoCOMB){
+//				if (!toggleButtonCOMB.isChecked() && isChecked)
+//				{
+//					buttonView.setChecked(false);
+//					return;
+//				}
+////				SetLoopData(ComB,editTextCOMB.getText().toString());
+//				SetAutoSend(ComB,isChecked);
+//			}
 		}
 	}
 	//----------------------------------------------------清除按钮、发送按钮
@@ -490,7 +490,7 @@ public class ComAssistantActivity extends Activity {
 					OpenComPort(ComB);
 				}else {
 					CloseComPort(ComB);
-					checkBoxAutoCOMB.setChecked(false);
+//					checkBoxAutoCOMB.setChecked(false);
 				}
 			}
 		}
