@@ -1,0 +1,27 @@
+#Internal package file, do not edit.
+#Mon Sep 04 11:14:47 CST 2017
+2.base=C\:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\transforms\\mergeJavaRes\\debug\\jars\\2\\1f\\main.jar
+5.file=C\:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\resources-debug.ap_\\resources.arsc
+5.set=ANDROID_RESOURCE
+3.base=C\:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\resources-debug.ap_
+6.file=C\:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout-land\\main.xml
+2.set=JAVA_RESOURCE
+4.base=C\:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\resources-debug.ap_
+7.file=C\:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable-mdpi-v4\\ic_launcher.png
+7.set=ANDROID_RESOURCE
+count=8
+0.file=C\:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\resources-debug.ap_\\AndroidManifest.xml
+5.base=C\:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\resources-debug.ap_
+4.set=ANDROID_RESOURCE
+6.base=C\:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\resources-debug.ap_
+1.file=C\:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
+1.set=DEX
+7.base=C\:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\resources-debug.ap_
+2.file=C\:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\transforms\\mergeJavaRes\\debug\\jars\\2\\1f\\main.jar\\assets\\zdpmelon\\zdpyimi
+6.set=ANDROID_RESOURCE
+0.base=C\:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\resources-debug.ap_
+3.file=C\:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout-land-v17\\main.xml
+3.set=ANDROID_RESOURCE
+1.base=C\:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
+4.file=C\:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout-port\\main.xml
+0.set=ANDROID_RESOURCE

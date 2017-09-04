@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_login_fragment.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\d0c0d27175a5704f26232044a07b7adec252bac0\\output\\res\\layout\\com_facebook_login_fragment.xml"
+    },
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_white_round.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\d0c0d27175a5704f26232044a07b7adec252bac0\\output\\res\\layout\\messenger_button_send_white_round.xml"
+    },
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout\\place_autocomplete_item_prediction.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\684bdd212d296d71c341063e4315f824030cd797\\output\\res\\layout\\place_autocomplete_item_prediction.xml"
+    },
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout\\place_autocomplete_progress.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\684bdd212d296d71c341063e4315f824030cd797\\output\\res\\layout\\place_autocomplete_progress.xml"
+    },
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout\\place_autocomplete_fragment.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\684bdd212d296d71c341063e4315f824030cd797\\output\\res\\layout\\place_autocomplete_fragment.xml"
+    },
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_blue_large.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\d0c0d27175a5704f26232044a07b7adec252bac0\\output\\res\\layout\\messenger_button_send_blue_large.xml"
+    },
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_activity_layout.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\d0c0d27175a5704f26232044a07b7adec252bac0\\output\\res\\layout\\com_facebook_activity_layout.xml"
+    },
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout\\com_facebook_tooltip_bubble.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\d0c0d27175a5704f26232044a07b7adec252bac0\\output\\res\\layout\\com_facebook_tooltip_bubble.xml"
+    },
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_blue_round.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\d0c0d27175a5704f26232044a07b7adec252bac0\\output\\res\\layout\\messenger_button_send_blue_round.xml"
+    },
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_white_large.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\d0c0d27175a5704f26232044a07b7adec252bac0\\output\\res\\layout\\messenger_button_send_white_large.xml"
+    },
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_white_small.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\d0c0d27175a5704f26232044a07b7adec252bac0\\output\\res\\layout\\messenger_button_send_white_small.xml"
+    },
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout\\messenger_button_send_blue_small.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\d0c0d27175a5704f26232044a07b7adec252bac0\\output\\res\\layout\\messenger_button_send_blue_small.xml"
+    },
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout\\place_autocomplete_item_powered_by_google.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\684bdd212d296d71c341063e4315f824030cd797\\output\\res\\layout\\place_autocomplete_item_powered_by_google.xml"
+    }
+]

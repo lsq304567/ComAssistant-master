@@ -1,0 +1,26 @@
+[
+    {
+        "outputFile": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-bn\\values-bn.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 66,
+                    "endOffset": 117
+                },
+                "from": {
+                    "file": "L:\\Users\\zpj\\.android\\build-cache\\d0c0d27175a5704f26232044a07b7adec252bac0\\output\\res\\values-bn\\values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 178,
+                        "endColumn": 66,
+                        "endOffset": 240
+                    }
+                }
+            }
+        ]
+    }
+]

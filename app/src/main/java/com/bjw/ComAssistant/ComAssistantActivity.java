@@ -70,11 +70,13 @@ public class ComAssistantActivity extends Activity {
 	EditText editTextRecDisp,editTextLines,editTextCOMA,editTextCOMB;
 	EditText editTextTimeCOMA,editTextTimeCOMB;
 	EditText mReception, mEmission;
+	TextView myTextView;
 	CheckBox checkBoxAutoClear,checkBoxAutoCOMA,checkBoxAutoCOMB;
 	Button ButtonClear,ButtonSendCOMA,ButtonSendCOMB,ButtonChecklock,ButtonOpenlock1_1;
 	ToggleButton toggleButtonCOMA,toggleButtonCOMB;
-	Spinner SpinnerCOMA,SpinnerCOMB;
+	Spinner SpinnerCOMA,SpinnerCOMB,Spinnerlock;
 	Spinner SpinnerBaudRateCOMA,SpinnerBaudRateCOMB;
+	private List<String> list = new ArrayList<String>();
 	RadioButton radioButtonTxt,radioButtonHex;
 	SerialControl ComA,ComB;//4个串口
 	DispQueueThread DispQueue;//刷新显示线程
@@ -83,6 +85,7 @@ public class ComAssistantActivity extends Activity {
 	int iRecLines=0;//接收区行数
     private SerialPort mSerialPort;
     private OutputStream mOutputStream;
+	private ArrayAdapter<String> adapter;
 
 //    EditText mReception;
 //    FileOutputStream mOutputStream;
@@ -106,6 +109,54 @@ public class ComAssistantActivity extends Activity {
 		AssistData = getAssistData();
 		setControls();
 
+		list.add("1");
+		list.add("2");
+		list.add("3");
+		list.add("4");
+		list.add("5");
+		list.add("6");
+		list.add("7");
+		list.add("8");
+		list.add("9");
+		list.add("10");
+		list.add("11");
+		list.add("12");
+		list.add("13");
+		list.add("14");
+		list.add("15");
+		list.add("16");
+		list.add("17");
+		list.add("18");
+		list.add("19");
+		list.add("20");
+		list.add("21");
+		list.add("22");
+		list.add("23");
+		list.add("24");
+
+		Spinnerlock = (Spinner)findViewById(R.id.SpinnerOpenlockid);
+		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, list);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		Spinnerlock.setAdapter(adapter);
+
+		myTextView = (TextView) findViewById(R.id.myTextViewid);
+
+
+		Spinnerlock.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				// TODO Auto-generated method stub
+                /* 将所选mySpinner 的值带入myTextView 中*/
+				myTextView.setText("您选择的锁号是："+ adapter.getItem(arg2));
+                /* 将mySpinner 显示*/
+				arg0.setVisibility(View.VISIBLE);
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				myTextView.setText("NONE");
+				arg0.setVisibility(View.VISIBLE);
+			}
+		});
 
         try {
             mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), 9600, 0);
@@ -161,9 +212,9 @@ public class ComAssistantActivity extends Activity {
                     Log.e ( "TAG", "ButtonOpenlock" );
 
 
-                    byte[] buf= new byte[]{(byte) (byte) 0x80, (byte) 0x01,(byte) 0x00, (byte) 0x99, (byte) 0x18};
+//                    byte[] buf= new byte[]{(byte) (byte) 0x80, (byte) 0x01,(byte) 0x00, (byte) 0x99, (byte) 0x18};
 
-                    buf = MyFunc.HexToByteArr ( "8A0101119B" );
+					byte[] buf = MyFunc.HexToByteArr ( "8A0101119B" );
 //                    buf = MyFunc.HexToByteArr ( "8001009918" );
                     Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
 
@@ -184,10 +235,10 @@ public class ComAssistantActivity extends Activity {
                     Log.e ( "TAG", "ButtonChecklock" );
 
 
-                    byte[] buf= new byte[]{(byte) (byte) 0x80, (byte) 0x01,(byte) 0x00, (byte) 0x99, (byte) 0x18};
+//                    byte[] buf= new byte[]{(byte) (byte) 0x80, (byte) 0x01,(byte) 0x00, (byte) 0x99, (byte) 0x18};
 
 //                    buf = MyFunc.HexToByteArr ( "8A0101119B" );
-                    buf = MyFunc.HexToByteArr ( "8001009918" );
+					byte[] buf = MyFunc.HexToByteArr ( "8001009918" );
                     Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
 
                     mOutputStream.write(buf);
