@@ -73,13 +73,13 @@ public class ComAssistantActivity extends Activity {
 	TextView myTextView;
 //	CheckBox checkBoxAutoCOMB;
 	Button ButtonChecklock,ButtonOpenlock1_1;
-	ToggleButton toggleButtonCOMB;
+//	ToggleButton toggleButtonCOMB;
 	Spinner Spinnerlock;
 //	Spinner SpinnerBaudRateCOMB;
 	private List<String> list = new ArrayList<String>();
 	RadioButton radioButtonHex;
-	SerialControl ComB;//4个串口
-	DispQueueThread DispQueue;//刷新显示线程
+//	SerialControl ComB;//4个串口
+//	DispQueueThread DispQueue;//刷新显示线程
 	SerialPortFinder mSerialPortFinder;//串口设备搜索
 	AssistBean AssistData;//用于界面数据序列化和反序列化
 	int iRecLines=0;//接收区行数
@@ -103,10 +103,10 @@ public class ComAssistantActivity extends Activity {
 //		Button485jc_2 = (Button) findViewById(R.id.Button485_2);
 
 //		ComA = new SerialControl();
-		ComB = new SerialControl();
-		DispQueue = new DispQueueThread();
-		DispQueue.start();
-		AssistData = getAssistData();
+//		ComB = new SerialControl();
+//		DispQueue = new DispQueueThread();
+//		DispQueue.start();
+//		AssistData = getAssistData();
 		setControls();
 
 		list.add("1");
@@ -290,16 +290,16 @@ public class ComAssistantActivity extends Activity {
 
 	@Override
 	public void onDestroy(){
-		saveAssistData(AssistData);
+//		saveAssistData(AssistData);
 //    	CloseComPort(ComA);
-		CloseComPort(ComB);
+//		CloseComPort(ComB);
 		super.onDestroy();
 	}
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 //      CloseComPort(ComA);
-		CloseComPort(ComB);
+//		CloseComPort(ComB);
 		setContentView(R.layout.main);
 		setControls();
 	}
@@ -343,7 +343,7 @@ public class ComAssistantActivity extends Activity {
 		ButtonOpenlock1_1=(Button)findViewById(R.id.ButtonOpenlockid1_1);
 
 //		toggleButtonCOMA=(ToggleButton)findViewById(R.id.toggleButtonCOMA);
-		toggleButtonCOMB=(ToggleButton)findViewById(R.id.ToggleButtonCOMB);
+//		toggleButtonCOMB=(ToggleButton)findViewById(R.id.ToggleButtonCOMB);
 
 //		SpinnerCOMA=(Spinner)findViewById(R.id.SpinnerCOMA);
 //		SpinnerCOMB=(Spinner)findViewById(R.id.SpinnerCOMB);
@@ -373,7 +373,7 @@ public class ComAssistantActivity extends Activity {
 //		ButtonSendCOMB.setOnClickListener(new ButtonClickEvent());
 
 //		toggleButtonCOMA.setOnCheckedChangeListener(new ToggleButtonCheckedChangeEvent());
-		toggleButtonCOMB.setOnCheckedChangeListener(new ToggleButtonCheckedChangeEvent());
+//		toggleButtonCOMB.setOnCheckedChangeListener(new ToggleButtonCheckedChangeEvent());
 
 //		checkBoxAutoCOMA.setOnCheckedChangeListener(new CheckBoxChangeEvent());
 //		checkBoxAutoCOMB.setOnCheckedChangeListener(new CheckBoxChangeEvent());
@@ -415,7 +415,7 @@ public class ComAssistantActivity extends Activity {
 //		SpinnerBaudRateCOMA.setOnItemSelectedListener(new ItemSelectedEvent());
 //		SpinnerBaudRateCOMB.setOnItemSelectedListener(new ItemSelectedEvent());
 
-		DispAssistData(AssistData);
+//		DispAssistData(AssistData);
 	}
 	//----------------------------------------------------串口号或波特率变化时，关闭打开的串口
 	class ItemSelectedEvent implements Spinner.OnItemSelectedListener{
@@ -482,212 +482,19 @@ public class ComAssistantActivity extends Activity {
 	class ToggleButtonCheckedChangeEvent implements ToggleButton.OnCheckedChangeListener{
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 		{
-			if (buttonView == toggleButtonCOMB){
-				if (isChecked){
+//			if (buttonView == toggleButtonCOMB){
+//				if (isChecked){
 //						ComB=new SerialControl("/dev/s3c2410_serial1", "9600");
 //						ComB.setPort(SpinnerCOMB.getSelectedItem().toString());
 //					ComB.setBaudRate(SpinnerBaudRateCOMB.getSelectedItem().toString());
-					OpenComPort(ComB);
-				}else {
-					CloseComPort(ComB);
+//					OpenComPort(ComB);
+//				}else {
+//					CloseComPort(ComB);
 //					checkBoxAutoCOMB.setChecked(false);
-				}
+//				}
 			}
 		}
 	}
 	//----------------------------------------------------串口控制类
-	private class SerialControl extends SerialHelper{
-
-		//		public SerialControl(String sPort, String sBaudRate){
-//			super(sPort, sBaudRate);
-//		}
-		public SerialControl(){
-		}
-
-		@Override
-		protected void onDataReceived(final ComBean ComRecData)
-		{
-			//数据接收量大或接收时弹出软键盘，界面会卡顿,可能和6410的显示性能有关
-			//直接刷新显示，接收数据量大时，卡顿明显，但接收与显示同步。
-			//用线程定时刷新显示可以获得较流畅的显示效果，但是接收数据速度快于显示速度时，显示会滞后。
-			//最终效果差不多-_-，线程定时刷新稍好一些。
-			DispQueue.AddQueue(ComRecData);//线程定时刷新显示(推荐)
-			/*
-			runOnUiThread(new Runnable()//直接刷新显示
-			{
-				public void run()
-				{
-					DispRecData(ComRecData);
-				}
-			});*/
-		}
-	}
+//}
 	//----------------------------------------------------刷新显示线程
-	private class DispQueueThread extends Thread{
-		private Queue<ComBean> QueueList = new LinkedList<ComBean>();
-		@Override
-		public void run() {
-			super.run();
-			while(!isInterrupted()) {
-				final ComBean ComData;
-				while((ComData=QueueList.poll())!=null)
-				{
-					runOnUiThread(new Runnable()
-					{
-						public void run()
-						{
-							DispRecData(ComData);
-						}
-					});
-					try
-					{
-						Thread.sleep(100);//显示性能高的话，可以把此数值调小。
-					} catch (Exception e)
-					{
-						e.printStackTrace();
-					}
-					break;
-				}
-			}
-		}
-
-		public synchronized void AddQueue(ComBean ComData){
-			QueueList.add(ComData);
-		}
-	}
-	//----------------------------------------------------刷新界面数据
-	private void DispAssistData(AssistBean AssistData)
-	{
-//    	editTextCOMA.setText(AssistData.getSendA());
-//    	editTextCOMB.setText(AssistData.getSendB());
-//    	setSendData(editTextCOMA);
-//    	setSendData(editTextCOMB);
-
-//    	editTextTimeCOMA.setText(AssistData.sTimeA);
-//    	editTextTimeCOMB.setText(AssistData.sTimeB);
-//    	setDelayTime(editTextTimeCOMA);
-//    	setDelayTime(editTextTimeCOMB);
-	}
-	//----------------------------------------------------保存、获取界面数据
-	private void saveAssistData(AssistBean AssistData) {
-//    	AssistData.sTimeA = editTextTimeCOMA.getText().toString();
-//    	AssistData.sTimeB = editTextTimeCOMB.getText().toString();
-		SharedPreferences msharedPreferences = getSharedPreferences("ComAssistant", Context.MODE_PRIVATE);
-		try {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ObjectOutputStream oos = new ObjectOutputStream(baos);
-			oos.writeObject(AssistData);
-			String sBase64 = new String(Base64.encode(baos.toByteArray(),0));
-			SharedPreferences.Editor editor = msharedPreferences.edit();
-			editor.putString("AssistData", sBase64);
-			editor.commit();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	//----------------------------------------------------
-	private AssistBean getAssistData() {
-		SharedPreferences msharedPreferences = getSharedPreferences("ComAssistant", Context.MODE_PRIVATE);
-		AssistBean AssistData =	new AssistBean();
-		try {
-			String personBase64 = msharedPreferences.getString("AssistData", "");
-			byte[] base64Bytes = Base64.decode(personBase64.getBytes(),0);
-			ByteArrayInputStream bais = new ByteArrayInputStream(base64Bytes);
-			ObjectInputStream ois = new ObjectInputStream(bais);
-			AssistData = (AssistBean) ois.readObject();
-			return AssistData;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return AssistData;
-	}
-	//----------------------------------------------------设置自动发送延时
-	private void setDelayTime(TextView v){
-//    	if (v==editTextTimeCOMB)
-//		{
-//			AssistData.sTimeB = v.getText().toString();
-//			SetiDelayTime(ComB, v.getText().toString());
-//		}
-	}
-	//----------------------------------------------------设置自动发送数据
-//    private void setSendData(TextView v){
-//    	if (v==editTextCOMB)
-//		{
-//			AssistData.setSendB(v.getText().toString());
-//			SetLoopData(ComB, v.getText().toString());
-//		}
-//    }
-	//----------------------------------------------------设置自动发送延时
-	private void SetiDelayTime(SerialHelper ComPort,String sTime){
-		ComPort.setiDelay(Integer.parseInt(sTime));
-	}
-	//----------------------------------------------------设置自动发送数据
-	private void SetLoopData(SerialHelper ComPort,String sLoopData){
-
-	}
-	//----------------------------------------------------显示接收数据
-	private void DispRecData(ComBean ComRecData){
-		StringBuilder sMsg=new StringBuilder();
-		sMsg.append(ComRecData.sRecTime);
-		sMsg.append("[");
-		sMsg.append(ComRecData.sComPort);
-		sMsg.append("]");
-
-
-		sMsg.append("\r\n");
-
-//    	editTextRecDisp.append(sMsg);
-		iRecLines++;
-//    	editTextLines.setText(String.valueOf(iRecLines));
-
-	}
-	//----------------------------------------------------设置自动发送模式开关
-	private void SetAutoSend(SerialHelper ComPort,boolean isAutoSend){
-		if (isAutoSend)
-		{
-			ComPort.startSend();
-		} else
-		{
-			ComPort.stopSend();
-		}
-	}
-	//----------------------------------------------------串口发送
-	private void sendPortData(SerialHelper ComPort,String sOut){
-		if (ComPort!=null && ComPort.isOpen())
-		{
-//    		if (radioButtonTxt.isChecked())
-//			{
-//				ComPort.sendTxt(sOut);
-//			}else if (radioButtonHex.isChecked()) {
-//				ComPort.sendHex(sOut);
-//			}
-		}
-	}
-	//----------------------------------------------------关闭串口
-	private void CloseComPort(SerialHelper ComPort){
-		if (ComPort!=null){
-			ComPort.stopSend();
-			ComPort.close();
-		}
-	}
-	//----------------------------------------------------打开串口
-	private void OpenComPort(SerialHelper ComPort){
-		try
-		{
-			ComPort.open();
-		} catch (SecurityException e) {
-			ShowMessage("打开串口失败:没有串口读/写权限!");
-		} catch (IOException e) {
-			ShowMessage("打开串口失败:未知错误!");
-		} catch (InvalidParameterException e) {
-			ShowMessage("打开串口失败:参数错误!");
-		}
-	}
-
-
-	//------------------------------------------显示消息
-	private void ShowMessage(String sMsg)
-	{
-		Toast.makeText(this, sMsg, Toast.LENGTH_SHORT).show();
-	}
-}
