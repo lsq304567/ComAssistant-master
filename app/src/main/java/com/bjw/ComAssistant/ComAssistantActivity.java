@@ -996,7 +996,7 @@ public class ComAssistantActivity extends Activity {
 //		SpinnerBaudRateCOMB=(Spinner)findViewById(R.id.SpinnerBaudRateCOMB);
 
 //		radioButtonTxt=(RadioButton)findViewById(R.id.radioButtonTxt);
-		radioButtonHex=(RadioButton)findViewById(R.id.radioButtonHex);
+//		radioButtonHex=(RadioButton)findViewById(R.id.radioButtonHex);
 
 //		editTextCOMA.setOnEditorActionListener(new EditorActionEvent());/*监听键盘点击事件*/
 //		editTextCOMB.setOnEditorActionListener(new EditorActionEvent());
