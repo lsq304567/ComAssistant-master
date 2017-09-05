@@ -67,44 +67,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
-                        android:text="波特率：" />
+                        android:text="设置波特率：" />
 
                     <Spinner
                         android:id="@+id/Spinnerbpsid"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         />
 
-                    <Button
-                        android:id="@+id/Buttonbpsid9600"
-                        android:layout_width="100dip"
-                        android:layout_height="wrap_content"
-                        android:text="9600"/>
-                    <Button
-                        android:id="@+id/Buttonbpsid14000"
-                        android:layout_width="100dip"
-                        android:layout_height="wrap_content"
-                        android:text="14000"/>
-                    <Button
-                        android:id="@+id/Buttonbpsid192000"
-                        android:layout_width="100dip"
-                        android:layout_height="wrap_content"
-                        android:text="19200"/>
-                    <Button
-                        android:id="@+id/Buttonbpsid384000"
-                        android:layout_width="100dip"
-                        android:layout_height="wrap_content"
-                        android:text="38400"/>
-                    <Button
-                        android:id="@+id/Buttonbpsid57600"
-                        android:layout_width="100dip"
-                        android:layout_height="wrap_content"
-                        android:text="57600"/>
-                    <Button
-                        android:id="@+id/Buttonbpsid115200"
-                        android:layout_width="100dip"
-                        android:layout_height="wrap_content"
-                        android:text="115200"/>
 
                 </LinearLayout>
 

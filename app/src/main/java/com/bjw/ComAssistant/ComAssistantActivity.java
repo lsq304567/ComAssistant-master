@@ -190,6 +190,84 @@ public class ComAssistantActivity extends Activity {
 				} catch (IOException e) {
 					e.printStackTrace ();
 				}
+				if (bps == 9600) {
+					try {
+						Log.e ( "TAG", "9600" );
+
+						byte[] buf = MyFunc.HexToByteArr ( "9A0196777A" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+
+						mOutputStream.write ( buf );
+						mOutputStream.flush ();
+					} catch (IOException e) {
+						e.printStackTrace ();
+					}
+				}
+				else if (bps == 14000) {
+					try {
+						Log.e ( "TAG", "14000" );
+
+						byte[] buf = MyFunc.HexToByteArr ( "9A0114777A" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+
+						mOutputStream.write ( buf );
+						mOutputStream.flush ();
+					} catch (IOException e) {
+						e.printStackTrace ();
+					}
+				}
+				else if (bps == 19200) {
+					try {
+						Log.e ( "TAG", "19200" );
+
+						byte[] buf = MyFunc.HexToByteArr ( "9A0119777A" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+
+						mOutputStream.write ( buf );
+						mOutputStream.flush ();
+					} catch (IOException e) {
+						e.printStackTrace ();
+					}
+				}
+				else if (bps == 38400) {
+					try {
+						Log.e ( "TAG", "38400" );
+
+						byte[] buf = MyFunc.HexToByteArr ( "9A0138777A" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+
+						mOutputStream.write ( buf );
+						mOutputStream.flush ();
+					} catch (IOException e) {
+						e.printStackTrace ();
+					}
+				}
+				else if (bps == 57600) {
+					try {
+						Log.e ( "TAG", "57600" );
+
+						byte[] buf = MyFunc.HexToByteArr ( "9A0157777A" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+
+						mOutputStream.write ( buf );
+						mOutputStream.flush ();
+					} catch (IOException e) {
+						e.printStackTrace ();
+					}
+				}
+				else if (bps == 115200) {
+					try {
+						Log.e ( "TAG", "115200" );
+
+						byte[] buf = MyFunc.HexToByteArr ( "9A0111777A" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+
+						mOutputStream.write ( buf );
+						mOutputStream.flush ();
+					} catch (IOException e) {
+						e.printStackTrace ();
+					}
+				}
 
 
 			}
