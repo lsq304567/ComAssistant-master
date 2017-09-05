@@ -77,7 +77,7 @@ public class ComAssistantActivity extends Activity {
 	Spinner Spinnerlock, Spinnerbps;
 //	Spinner SpinnerBaudRateCOMB;
 	private List<String> list = new ArrayList<String>();
-	private List<String> listbps = new ArrayList<String>();
+	private List<Integer> listbps = new ArrayList<Integer>();
 
 	RadioButton radioButtonHex;
 //	SerialControl ComB;//4个串口
@@ -88,8 +88,8 @@ public class ComAssistantActivity extends Activity {
 	private SerialPort mSerialPort;
 	private OutputStream mOutputStream;
 	private ArrayAdapter<String> adapter;
-	private ArrayAdapter<String> adapterbps;
-
+	private ArrayAdapter<Integer> adapterbps;
+	int bps;
 
 //    EditText mReception;
 //    FileOutputStream mOutputStream;
@@ -135,19 +135,19 @@ public class ComAssistantActivity extends Activity {
 		list.add("23");
 		list.add("24");
 
-		listbps.add("9600");
-		listbps.add("14000");
-		listbps.add("19200");
-		listbps.add("38400");
-		listbps.add("57600");
-		listbps.add("115200");
+		listbps.add(9600);
+		listbps.add(14000);
+		listbps.add(19200);
+		listbps.add(38400);
+		listbps.add(57600);
+		listbps.add(115200);
 
 
 		Spinnerlock = (Spinner)findViewById(R.id.SpinnerOpenlockid);
 		Spinnerbps = (Spinner)findViewById(R.id.Spinnerbpsid);
 
 		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, list);
-		adapterbps = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, listbps);
+		adapterbps = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, listbps);
 
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		adapterbps.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -157,7 +157,7 @@ public class ComAssistantActivity extends Activity {
 
 		myTextView = (TextView) findViewById(R.id.myTextViewid);
 
-
+/*------------------------------------------------------------------------------------------*/
 		Spinnerlock.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				// TODO Auto-generated method stub
@@ -173,15 +173,42 @@ public class ComAssistantActivity extends Activity {
 				arg0.setVisibility(View.VISIBLE);
 			}
 		});
+/*------------------------------------------------------------------------------------------*/
+		Spinnerbps.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				// TODO Auto-generated method stub
+                /* 将所选mySpinner 的值带入myTextView 中*/
+				myTextView.setText("您选择的锁号是："+ adapterbps.getItem(arg2));
+                /* 将mySpinner 显示*/
+				arg0.setVisibility(View.VISIBLE);
+
+				bps = adapterbps.getItem(arg2);
+
+				try {
+					mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+					mOutputStream = mSerialPort.getOutputStream();
+				} catch (IOException e) {
+					e.printStackTrace ();
+				}
 
 
+			}
 
-		try {
-			mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), 9600, 0);
-			mOutputStream = mSerialPort.getOutputStream();
-		} catch (IOException e) {
-			e.printStackTrace ();
-		}
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				myTextView.setText("NONE");
+				arg0.setVisibility(View.VISIBLE);
+			}
+		});
+/*------------------------------------------------------------------------------------------*/
+
+
+//		try {
+//			mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), 9600, 0);
+//			mOutputStream = mSerialPort.getOutputStream();
+//		} catch (IOException e) {
+//			e.printStackTrace ();
+//		}
 
 		ButtonOpenlock1_1.setOnClickListener(new View.OnClickListener() {
 			public Object bOutArray;
