@@ -6,20 +6,11 @@
     >
 
 
-
-
-
-
     <LinearLayout
         android:id="@+id/LinearLayoutALLCOM"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="1" >
-
-
-
-
-
+        android:layout_weight="1">
 
 
         <LinearLayout
@@ -27,16 +18,14 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical" >
-
+            android:orientation="vertical">
 
 
             <LinearLayout
                 android:id="@+id/LinearLayoutTooLCOMB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
+                android:orientation="vertical">
 
 
                 <LinearLayout
@@ -50,12 +39,29 @@
                         android:id="@+id/ButtonChecklockid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="检测第几块板子"/>
+                        android:text="本地址查询"/>
 
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
+                    <TextView
+                        android:id="@+id/myTextViewid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text=" "/>
+
+                    <TextView
+                        android:id="@+id/myTextViewidbps1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text=" "/>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -67,7 +73,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
-                        android:text="设置波特率：" />
+                        android:text="设置波特率："/>
 
                     <Spinner
                         android:id="@+id/Spinnerbpsid"
@@ -78,16 +84,7 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/myTextViewid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text=" " />
-                </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/LinearLayoutOpenid_1"
                     android:layout_width="match_parent"
@@ -99,13 +96,21 @@
                         android:id="@+id/textViewlock"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="   锁号：" />
+                        android:text="   选择锁号："/>
 
                     <Spinner
                         android:id="@+id/SpinnerOpenlockid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         />
+
+                    <Button
+                        android:id="@+id/Openlockid"
+                        android:layout_width="100dip"
+                        android:layout_height="wrap_content"
+                        android:text="开锁"
+                        />
+
                     <Button
                         android:id="@+id/ButtonOpenlockid1_1"
                         android:layout_width="match_parent"
@@ -117,14 +122,9 @@
                 </LinearLayout>
 
 
-
-
             </LinearLayout>
 
         </LinearLayout>
-
-
-
 
 
     </LinearLayout>

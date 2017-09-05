@@ -1,20 +1,12 @@
 package com.bjw.ComAssistant;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.text.InputType;
-import android.text.method.KeyListener;
-import android.text.method.NumberKeyListener;
-import android.text.method.TextKeyListener;
-import android.text.method.TextKeyListener.Capitalize;
-import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -27,25 +19,16 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.bjw.bean.AssistBean;
-import com.bjw.bean.ComBean;
 import com.zdp.aseo.content.AseoZdpAseo;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 //import java.com.bjw.ComAssistant.*;
 //import com.bjw.ComAssistant.*;
 ////private OutputStream mOutputStream;
@@ -72,11 +55,11 @@ public class ComAssistantActivity extends Activity {
 	EditText mReception, mEmission;
 	TextView myTextView;
 //	CheckBox checkBoxAutoCOMB;
-	Button ButtonChecklock,ButtonOpenlock1_1;
+	Button ButtonChecklock,ButtonOpenlock1_1,Openlock;
 //	ToggleButton toggleButtonCOMB;
 	Spinner Spinnerlock, Spinnerbps;
 //	Spinner SpinnerBaudRateCOMB;
-	private List<String> list = new ArrayList<String>();
+	private List<Integer> list = new ArrayList<Integer> ();
 	private List<Integer> listbps = new ArrayList<Integer>();
 
 	RadioButton radioButtonHex;
@@ -87,10 +70,10 @@ public class ComAssistantActivity extends Activity {
 	int iRecLines=0;//接收区行数
 	private SerialPort mSerialPort;
 	private OutputStream mOutputStream;
-	private ArrayAdapter<String> adapter;
+	private ArrayAdapter<Integer> adapter;
 	private ArrayAdapter<Integer> adapterbps;
-	int bps;
-
+	int bps,lock;
+//	String lock;
 //    EditText mReception;
 //    FileOutputStream mOutputStream;
 //    FileInputStream mInputStream;
@@ -110,30 +93,30 @@ public class ComAssistantActivity extends Activity {
 //		AssistData = getAssistData();
 		setControls();
 
-		list.add("1");
-		list.add("2");
-		list.add("3");
-		list.add("4");
-		list.add("5");
-		list.add("6");
-		list.add("7");
-		list.add("8");
-		list.add("9");
-		list.add("10");
-		list.add("11");
-		list.add("12");
-		list.add("13");
-		list.add("14");
-		list.add("15");
-		list.add("16");
-		list.add("17");
-		list.add("18");
-		list.add("19");
-		list.add("20");
-		list.add("21");
-		list.add("22");
-		list.add("23");
-		list.add("24");
+		list.add(1);
+		list.add(2);
+		list.add(3);
+		list.add(4);
+		list.add(5);
+		list.add(6);
+		list.add(7);
+		list.add(8);
+		list.add(9);
+		list.add(10);
+		list.add(11);
+		list.add(12);
+		list.add(13);
+		list.add(14);
+		list.add(15);
+		list.add(16);
+		list.add(17);
+		list.add(18);
+		list.add(19);
+		list.add(20);
+		list.add(21);
+		list.add(22);
+		list.add(23);
+		list.add(24);
 
 		listbps.add(9600);
 		listbps.add(14000);
@@ -145,8 +128,9 @@ public class ComAssistantActivity extends Activity {
 
 		Spinnerlock = (Spinner)findViewById(R.id.SpinnerOpenlockid);
 		Spinnerbps = (Spinner)findViewById(R.id.Spinnerbpsid);
+		Openlock    = (Button)findViewById(R.id.Openlockid);
 
-		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, list);
+		adapter = new ArrayAdapter<Integer> (this,android.R.layout.simple_spinner_item, list);
 		adapterbps = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, listbps);
 
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -165,6 +149,10 @@ public class ComAssistantActivity extends Activity {
 				myTextView.setText("您选择的锁号是："+ adapter.getItem(arg2));
                 /* 将mySpinner 显示*/
 				arg0.setVisibility(View.VISIBLE);
+
+				lock = adapter.getItem(arg2);
+
+
 			}
 
 			public void onNothingSelected(AdapterView<?> arg0) {
@@ -178,7 +166,7 @@ public class ComAssistantActivity extends Activity {
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				// TODO Auto-generated method stub
                 /* 将所选mySpinner 的值带入myTextView 中*/
-				myTextView.setText("您选择的锁号是："+ adapterbps.getItem(arg2));
+				myTextView.setText("您选择的波特率是："+ adapterbps.getItem(arg2));
                 /* 将mySpinner 显示*/
 				arg0.setVisibility(View.VISIBLE);
 
@@ -373,6 +361,182 @@ public class ComAssistantActivity extends Activity {
 				}
 			}
 		} ) ;
+
+		Openlock.setOnClickListener ( new View.OnClickListener () {
+			@Override
+			public void onClick(View v) {
+				try
+				{
+					if (lock == 1) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0101119B" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 2) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A01021198" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 3) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A01031199" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+					}
+					else if (lock == 4) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0104119E" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 5) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0105119F" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 6) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0106119C" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 7) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0107119D" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 8) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A01081192" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 9) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A01091193" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 10) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A010A1190" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+					}
+					else if (lock == 11) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A010B1191" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 12) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A010C1196" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 13) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A010D1197" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+					}
+					else if (lock == 14) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A010E1194" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 15) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A010F1195" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 16) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0110118A" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 17) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0111118B" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 18) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A01121188" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 19) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A01131189" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 20) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0114118E" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 21) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0115118F" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 22) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0116118C" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 23) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0117118D" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 24) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A01181182" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+
+
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		} );
 //				sendPortData(ComB, Button485jc_1.getText().toString());
 
 //			 public void onClick(View v) {
