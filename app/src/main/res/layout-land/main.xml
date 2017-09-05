@@ -223,6 +223,27 @@
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/myTextViewidbps"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="设置波特率：" />
+
+                    <Spinner
+                        android:id="@+id/Spinnerbpsid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/LinearLay485_COMB"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

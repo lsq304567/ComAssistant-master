@@ -18,14 +18,14 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int ButtonChecklockid=0x7f06003d;
+        public static final int ButtonChecklockid=0x7f06003f;
         public static final int ButtonClear=0x7f060003;
-        public static final int ButtonOpenlockid1_1=0x7f060042;
+        public static final int ButtonOpenlockid1_1=0x7f060044;
         public static final int ButtonSendCOMA=0x7f060015;
         public static final int ButtonSendCOMB=0x7f060021;
         public static final int ButtonSendCOMC=0x7f06002e;
         public static final int ButtonSendCOMD=0x7f06003a;
-        public static final int LinearLay485_COMB=0x7f06003c;
+        public static final int LinearLay485_COMB=0x7f06003e;
         public static final int LinearLayoutALLCOM=0x7f06003b;
         public static final int LinearLayoutCOMA=0x7f06000a;
         public static final int LinearLayoutCOMAB=0x7f060009;
@@ -33,7 +33,7 @@ public final class R {
         public static final int LinearLayoutCOMC=0x7f060023;
         public static final int LinearLayoutCOMCD=0x7f060022;
         public static final int LinearLayoutCOMD=0x7f06002f;
-        public static final int LinearLayoutOpenid_1=0x7f06003f;
+        public static final int LinearLayoutOpenid_1=0x7f060041;
         public static final int LinearLayoutOption1COMA=0x7f06000e;
         public static final int LinearLayoutOption1COMB=0x7f06001a;
         public static final int LinearLayoutOption1COMC=0x7f060027;
@@ -56,7 +56,8 @@ public final class R {
         public static final int SpinnerCOMB=0x7f060019;
         public static final int SpinnerCOMC=0x7f060026;
         public static final int SpinnerCOMD=0x7f060032;
-        public static final int SpinnerOpenlockid=0x7f060041;
+        public static final int SpinnerOpenlockid=0x7f060043;
+        public static final int Spinnerbpsid=0x7f06003d;
         public static final int TextView01=0x7f06001f;
         public static final int TextView02=0x7f06002c;
         public static final int TextView03=0x7f060038;
@@ -78,12 +79,13 @@ public final class R {
         public static final int editTextTimeCOMB=0x7f06001e;
         public static final int editTextTimeCOMC=0x7f06002b;
         public static final int editTextTimeCOMD=0x7f060037;
-        public static final int myTextViewid=0x7f06003e;
+        public static final int myTextViewid=0x7f060040;
+        public static final int myTextViewidbps=0x7f06003c;
         public static final int radioButtonHex=0x7f060006;
         public static final int radioButtonTxt=0x7f060005;
         public static final int radioGroupOption=0x7f060004;
         public static final int textView1=0x7f060013;
-        public static final int textViewlock=0x7f060040;
+        public static final int textViewlock=0x7f060042;
         public static final int toggleButtonCOMA=0x7f060010;
     }
     public static final class layout {

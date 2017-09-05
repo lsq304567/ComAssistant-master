@@ -87,6 +87,11 @@ public class ComAssistantActivity extends Activity {
     private OutputStream mOutputStream;
 	private ArrayAdapter<String> adapter;
 
+	Spinner  Spinnerbps;
+	private List<Integer> listbps = new ArrayList<Integer>();
+	private ArrayAdapter<Integer> adapterbps;
+	int bps;
+
 //    EditText mReception;
 //    FileOutputStream mOutputStream;
 //    FileInputStream mInputStream;
@@ -134,10 +139,22 @@ public class ComAssistantActivity extends Activity {
 		list.add("23");
 		list.add("24");
 
+		listbps.add(9600);
+		listbps.add(14000);
+		listbps.add(19200);
+		listbps.add(38400);
+		listbps.add(57600);
+		listbps.add(115200);
+
 		Spinnerlock = (Spinner)findViewById(R.id.SpinnerOpenlockid);
 		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, list);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		Spinnerlock.setAdapter(adapter);
+
+		Spinnerbps = (Spinner)findViewById(R.id.Spinnerbpsid);
+		adapterbps = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, listbps);
+		adapterbps.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		Spinnerbps.setAdapter(adapterbps);
 
 		myTextView = (TextView) findViewById(R.id.myTextViewid);
 
@@ -158,12 +175,118 @@ public class ComAssistantActivity extends Activity {
 			}
 		});
 
-        try {
-            mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), 9600, 0);
-            mOutputStream = mSerialPort.getOutputStream();
-        } catch (IOException e) {
-            e.printStackTrace ();
-        }
+		 /*------------------------------------------------------------------------------------------*/
+		Spinnerbps.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				// TODO Auto-generated method stub
+                /* 将所选mySpinner 的值带入myTextView 中*/
+				myTextView.setText("您选择的锁号是："+ adapterbps.getItem(arg2));
+                /* 将mySpinner 显示*/
+				arg0.setVisibility(View.VISIBLE);
+
+				bps = adapterbps.getItem(arg2);
+
+				try {
+					mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+					mOutputStream = mSerialPort.getOutputStream();
+				} catch (IOException e) {
+					e.printStackTrace ();
+				}
+				if (bps == 9600) {
+					try {
+						Log.e ( "TAG", "9600" );
+
+						byte[] buf = MyFunc.HexToByteArr ( "9A0196777A" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+
+						mOutputStream.write ( buf );
+						mOutputStream.flush ();
+					} catch (IOException e) {
+						e.printStackTrace ();
+					}
+				}
+				else if (bps == 14000) {
+					try {
+						Log.e ( "TAG", "14000" );
+
+						byte[] buf = MyFunc.HexToByteArr ( "9A0114777A" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+
+						mOutputStream.write ( buf );
+						mOutputStream.flush ();
+					} catch (IOException e) {
+						e.printStackTrace ();
+					}
+				}
+				else if (bps == 19200) {
+					try {
+						Log.e ( "TAG", "19200" );
+
+						byte[] buf = MyFunc.HexToByteArr ( "9A0119777A" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+
+						mOutputStream.write ( buf );
+						mOutputStream.flush ();
+					} catch (IOException e) {
+						e.printStackTrace ();
+					}
+				}
+				else if (bps == 38400) {
+					try {
+						Log.e ( "TAG", "38400" );
+
+						byte[] buf = MyFunc.HexToByteArr ( "9A0138777A" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+
+						mOutputStream.write ( buf );
+						mOutputStream.flush ();
+					} catch (IOException e) {
+						e.printStackTrace ();
+					}
+				}
+				else if (bps == 57600) {
+					try {
+						Log.e ( "TAG", "57600" );
+
+						byte[] buf = MyFunc.HexToByteArr ( "9A0157777A" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+
+						mOutputStream.write ( buf );
+						mOutputStream.flush ();
+					} catch (IOException e) {
+						e.printStackTrace ();
+					}
+				}
+				else if (bps == 115200) {
+					try {
+						Log.e ( "TAG", "115200" );
+
+						byte[] buf = MyFunc.HexToByteArr ( "9A0111777A" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+
+						mOutputStream.write ( buf );
+						mOutputStream.flush ();
+					} catch (IOException e) {
+						e.printStackTrace ();
+					}
+				}
+
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				myTextView.setText("NONE");
+				arg0.setVisibility(View.VISIBLE);
+			}
+		});
+/*------------------------------------------------------------------------------------------*/
+
+//        try {
+//            mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), 9600, 0);
+//            mOutputStream = mSerialPort.getOutputStream();
+//        } catch (IOException e) {
+//            e.printStackTrace ();
+//        }
 
         ButtonOpenlock1_1.setOnClickListener(new View.OnClickListener() {
             public Object bOutArray;
