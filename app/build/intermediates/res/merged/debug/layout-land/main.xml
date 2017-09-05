@@ -106,17 +106,32 @@
 
                     <Button
                         android:id="@+id/Openlockid"
-                        android:layout_width="100dip"
+                        android:layout_width="200dip"
                         android:layout_height="wrap_content"
                         android:text="开锁"
                         />
 
                     <Button
-                        android:id="@+id/ButtonOpenlockid1_1"
-                        android:layout_width="match_parent"
+                        android:id="@+id/Readlockid"
+                        android:layout_width="200dip"
                         android:layout_height="wrap_content"
-                        android:text="开锁第一块板子的第一把锁"
+                        android:text="读柜门状态"
                         />
+
+                    <Button
+                        android:id="@+id/Readinfraredid"
+                        android:layout_width="200dip"
+                        android:layout_height="wrap_content"
+                        android:text="读红外状态"
+                        />
+
+
+                    <!--<Button-->
+                    <!--android:id="@+id/ButtonOpenlockid1_1"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="开锁第一块板子的第一把锁"-->
+                    <!--/>-->
 
 
                 </LinearLayout>

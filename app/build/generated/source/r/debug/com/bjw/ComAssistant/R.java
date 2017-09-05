@@ -20,7 +20,6 @@ public final class R {
     public static final class id {
         public static final int ButtonChecklockid=0x7f06003d;
         public static final int ButtonClear=0x7f060003;
-        public static final int ButtonOpenlockid1_1=0x7f060046;
         public static final int ButtonSendCOMA=0x7f060015;
         public static final int ButtonSendCOMB=0x7f060021;
         public static final int ButtonSendCOMC=0x7f06002e;
@@ -49,6 +48,8 @@ public final class R {
         public static final int LinearLayoutTooLCOMC=0x7f060025;
         public static final int LinearLayoutTooLCOMD=0x7f060031;
         public static final int Openlockid=0x7f060045;
+        public static final int Readinfraredid=0x7f060047;
+        public static final int Readlockid=0x7f060046;
         public static final int SpinnerBaudRateCOMA=0x7f06000f;
         public static final int SpinnerBaudRateCOMB=0x7f06001b;
         public static final int SpinnerBaudRateCOMC=0x7f060028;

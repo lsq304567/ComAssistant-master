@@ -55,7 +55,7 @@ public class ComAssistantActivity extends Activity {
 	EditText mReception, mEmission;
 	TextView myTextView;
 //	CheckBox checkBoxAutoCOMB;
-	Button ButtonChecklock,ButtonOpenlock1_1,Openlock;
+	Button ButtonChecklock,Openlock,Readlock,Readinfrared;
 //	ToggleButton toggleButtonCOMB;
 	Spinner Spinnerlock, Spinnerbps;
 //	Spinner SpinnerBaudRateCOMB;
@@ -127,8 +127,10 @@ public class ComAssistantActivity extends Activity {
 
 
 		Spinnerlock = (Spinner)findViewById(R.id.SpinnerOpenlockid);
-		Spinnerbps = (Spinner)findViewById(R.id.Spinnerbpsid);
+		Spinnerbps  = (Spinner)findViewById(R.id.Spinnerbpsid);
 		Openlock    = (Button)findViewById(R.id.Openlockid);
+		Readlock    = (Button)findViewById(R.id.Readlockid);
+		Readinfrared = (Button)findViewById(R.id.Readinfraredid);
 
 		adapter = new ArrayAdapter<Integer> (this,android.R.layout.simple_spinner_item, list);
 		adapterbps = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, listbps);
@@ -276,68 +278,68 @@ public class ComAssistantActivity extends Activity {
 //			e.printStackTrace ();
 //		}
 
-		ButtonOpenlock1_1.setOnClickListener(new View.OnClickListener() {
-			public Object bOutArray;
-
-			@Override
-			public void onClick(View v) {
-
-//                ButtonChecklock.setText("8001009918");
-
-//				onDataReceived(ComRecData);
-//				ButtonChecklock.setText("8001009918");
-//				sendPortData(ComB, "8001009918");//没有效果
-//				setSendData(ButtonChecklock);
-
-//				mReception = (EditText) findViewById(R.id.EditTextReception);
-//				mEmission = (EditText) findViewById(R.id.EditTextEmission);
-
-//				String text = mEmission.getText().toString();
-//                String text = "8001009918";
-
-//                try {
-//                    mOutputStream.write(new String(text).getBytes());
-//                    mOutputStream.write('\n');
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-				//发送指令
-//				mEmission.setText("8001009918");
-//                setSendData();
-//                SetLoopData(ComB, text);
-//				sendPortData(ComB, "8001009918");//没有效果
-//                SetLoopData(ComB,"8001009918");
-//                SetAutoSend(ComB,isChecked);
-//                i = inputStream.read();
-//                outputStream.write(i);
-
-//                sendPortData.ComPort.sendHex.send.mOutputStream.write("8001009918");
-//                inputStream.close();
-//                outputStream.close();public void send(byte[] bOutArray){
-
-//                mOutputStream = mSerialPort.getOutputStream();
-
-
-				try
-				{
-					Log.e ( "TAG", "ButtonOpenlock" );
-
-
-//                    byte[] buf= new byte[]{(byte) (byte) 0x80, (byte) 0x01,(byte) 0x00, (byte) 0x99, (byte) 0x18};
-
-					byte[] buf = MyFunc.HexToByteArr ( "8A0101119B" );
-//                    buf = MyFunc.HexToByteArr ( "8001009918" );
-					Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
-
-					mOutputStream.write(buf);
-					mOutputStream.flush ();
-
-				} catch (IOException e)
-				{
-					e.printStackTrace();
-				}
-			}
-		});
+//		ButtonOpenlock1_1.setOnClickListener(new View.OnClickListener() {
+//			public Object bOutArray;
+//
+//			@Override
+//			public void onClick(View v) {
+//
+////                ButtonChecklock.setText("8001009918");
+//
+////				onDataReceived(ComRecData);
+////				ButtonChecklock.setText("8001009918");
+////				sendPortData(ComB, "8001009918");//没有效果
+////				setSendData(ButtonChecklock);
+//
+////				mReception = (EditText) findViewById(R.id.EditTextReception);
+////				mEmission = (EditText) findViewById(R.id.EditTextEmission);
+//
+////				String text = mEmission.getText().toString();
+////                String text = "8001009918";
+//
+////                try {
+////                    mOutputStream.write(new String(text).getBytes());
+////                    mOutputStream.write('\n');
+////                } catch (IOException e) {
+////                    e.printStackTrace();
+////                }
+//				//发送指令
+////				mEmission.setText("8001009918");
+////                setSendData();
+////                SetLoopData(ComB, text);
+////				sendPortData(ComB, "8001009918");//没有效果
+////                SetLoopData(ComB,"8001009918");
+////                SetAutoSend(ComB,isChecked);
+////                i = inputStream.read();
+////                outputStream.write(i);
+//
+////                sendPortData.ComPort.sendHex.send.mOutputStream.write("8001009918");
+////                inputStream.close();
+////                outputStream.close();public void send(byte[] bOutArray){
+//
+////                mOutputStream = mSerialPort.getOutputStream();
+//
+//
+//				try
+//				{
+//					Log.e ( "TAG", "ButtonOpenlock" );
+//
+//
+////                    byte[] buf= new byte[]{(byte) (byte) 0x80, (byte) 0x01,(byte) 0x00, (byte) 0x99, (byte) 0x18};
+//
+//					byte[] buf = MyFunc.HexToByteArr ( "8A0101119B" );
+////                    buf = MyFunc.HexToByteArr ( "8001009918" );
+//					Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+//
+//					mOutputStream.write(buf);
+//					mOutputStream.flush ();
+//
+//				} catch (IOException e)
+//				{
+//					e.printStackTrace();
+//				}
+//			}
+//		});
 		ButtonChecklock.setOnClickListener ( new View.OnClickListener (){
 			@Override
 			public void onClick(View v) {
@@ -537,6 +539,361 @@ public class ComAssistantActivity extends Activity {
 				}
 			}
 		} );
+
+		/*-------------------------读柜门状态------------------------------------------------*/
+		Readlock.setOnClickListener ( new View.OnClickListener () {
+			@Override
+			public void onClick(View v) {
+				try
+				{
+					if (lock == 1) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010133B3" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 2) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010233B0" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 3) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010333B1" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+					}
+					else if (lock == 4) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010433B6" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 5) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010533B7" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 6) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010633B4" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 7) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010733B5" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 8) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010833BA" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 9) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010933BB" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 10) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010A33B8" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+					}
+					else if (lock == 11) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010B33B9" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 12) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010C33BE" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 13) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010D33BF" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+					}
+					else if (lock == 14) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010E33BC" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 15) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010F33BD" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 16) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011033A2" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 17) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011133A3" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 18) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011233A0" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 19) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011333A1" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 20) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011433A6" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 21) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011533A7" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 22) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011633A4" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 23) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011733A5" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 24) {
+						Log.e ( "TAG", "Readlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011833AA" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+
+
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		} );
+/*--------------------------------读红外状态-----------------------------------------*/
+		Readinfrared.setOnClickListener ( new View.OnClickListener () {
+			@Override
+			public void onClick(View v) {
+				try
+				{
+					if (lock == 1) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010122A2" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 2) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010222A1" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 3) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010322A0" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+					}
+					else if (lock == 4) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010422A7" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 5) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010522A6" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 6) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010622A5" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 7) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010722A4" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 8) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010822AB" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 9) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010922AA" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 10) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010A22A9" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+					}
+					else if (lock == 11) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010B22A8" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 12) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010C22AF" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 13) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010D22AE" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+					}
+					else if (lock == 14) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010E22AD" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 15) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010F22AC" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 16) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011022B3" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 17) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011122B2" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 18) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011222B1" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 19) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011322B0" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 20) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011422B7" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 21) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011522B6" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 22) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011622B5" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 23) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011722B4" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+					else if (lock == 24) {
+						Log.e ( "TAG", "Openlock" );
+						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011822BB" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						mOutputStream.write(bufOpenlock);
+						mOutputStream.flush ();
+					}
+
+
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		} );
+
+/*-------------------------------------------------------------------------*/
 //				sendPortData(ComB, Button485jc_1.getText().toString());
 
 //			 public void onClick(View v) {
@@ -627,7 +984,7 @@ public class ComAssistantActivity extends Activity {
 //		ButtonSendCOMA=(Button)findViewById(R.id.ButtonSendCOMA);
 //		ButtonSendCOMB=(Button)findViewById(R.id.ButtonSendCOMB);
 		ButtonChecklock=(Button)findViewById(R.id.ButtonChecklockid);/*--------------------------------------------------------------*/
-		ButtonOpenlock1_1=(Button)findViewById(R.id.ButtonOpenlockid1_1);
+//		ButtonOpenlock1_1=(Button)findViewById(R.id.ButtonOpenlockid1_1);
 
 //		toggleButtonCOMA=(ToggleButton)findViewById(R.id.toggleButtonCOMA);
 //		toggleButtonCOMB=(ToggleButton)findViewById(R.id.ToggleButtonCOMB);
