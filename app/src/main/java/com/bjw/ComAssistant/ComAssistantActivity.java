@@ -22,10 +22,12 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.bjw.bean.AssistBean;
+import com.bjw.bean.ComBean;
 import com.zdp.aseo.content.AseoZdpAseo;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +72,8 @@ public class ComAssistantActivity extends Activity {
 	int iRecLines=0;//接收区行数
 	private SerialPort mSerialPort;
 	private OutputStream mOutputStream;
+	private InputStream mInputStream;
+
 	private ArrayAdapter<Integer> adapter;
 	private ArrayAdapter<Integer> adapterbps;
 	int bps,lock;
@@ -85,6 +89,8 @@ public class ComAssistantActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+
+
 
 //		ComA = new SerialControl();
 //		ComB = new SerialControl();
@@ -126,10 +132,10 @@ public class ComAssistantActivity extends Activity {
 		listbps.add(115200);
 
 
-		Spinnerlock = (Spinner)findViewById(R.id.SpinnerOpenlockid);
-		Spinnerbps  = (Spinner)findViewById(R.id.Spinnerbpsid);
-		Openlock    = (Button)findViewById(R.id.Openlockid);
-		Readlock    = (Button)findViewById(R.id.Readlockid);
+		Spinnerlock  = (Spinner)findViewById(R.id.SpinnerOpenlockid);
+		Spinnerbps   = (Spinner)findViewById(R.id.Spinnerbpsid);
+		Openlock     = (Button)findViewById(R.id.Openlockid);
+		Readlock     = (Button)findViewById(R.id.Readlockid);
 		Readinfrared = (Button)findViewById(R.id.Readinfraredid);
 
 		adapter = new ArrayAdapter<Integer> (this,android.R.layout.simple_spinner_item, list);
@@ -542,16 +548,47 @@ public class ComAssistantActivity extends Activity {
 
 		/*-------------------------读柜门状态------------------------------------------------*/
 		Readlock.setOnClickListener ( new View.OnClickListener () {
+
+
+
 			@Override
 			public void onClick(View v) {
+
 				try
 				{
 					if (lock == 1) {
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
 						Log.e ( "TAG", "Readlock" );
 						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010133B3" );
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+//						StringBuilder sMsg= null;
+//						ComBean ComRecData = null;
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+//						sMsg = new StringBuilder();
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						Log.e ( "TAG", "if外 buffer "+buffer );
+						String str1 = new String ("8001010080");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 1号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+
+//						ComRecData = new ComBean (sPort,buffer,size);
+//
+//						myTextView.setText("您选择的柜门状态是："+ (sMsg.append(MyFunc.ByteArrToHex(ComRecData.bRec))));
 					}
 					else if (lock == 2) {
 						Log.e ( "TAG", "Readlock" );
