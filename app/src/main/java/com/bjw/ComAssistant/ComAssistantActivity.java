@@ -576,13 +576,17 @@ public class ComAssistantActivity extends Activity {
 						int size = mInputStream.read(buffer);
 						String str = MyFunc.ByteArrToHex ( buffer,0, size );
 						Log.e ( "TAG", "if外 "+str );
-						Log.e ( "TAG", "if外 buffer "+buffer );
 						String str1 = new String ("8001010080");
+						String str2 = new String ("8001011191");
 
 						if (str.equals(str1)) {
 //							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
 							myTextView.setText ( "您选择的柜门状态是: 1号柜门关闭状态");
 							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 1号柜门打开状态");
 
 						}
 
@@ -591,16 +595,62 @@ public class ComAssistantActivity extends Activity {
 //						myTextView.setText("您选择的柜门状态是："+ (sMsg.append(MyFunc.ByteArrToHex(ComRecData.bRec))));
 					}
 					else if (lock == 2) {
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
 						Log.e ( "TAG", "Readlock" );
 						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010233B0" );
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("8001020083");
+						String str2 = new String ("8001021192");
+
+						if (str.equals(str1)) {
+							myTextView.setText ( "您选择的柜门状态是: 2号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 1号柜门打开状态");
+
+						}
+
 					}
 					else if (lock == 3) {
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
 						Log.e ( "TAG", "Readlock" );
 						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010333B1" );
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("xxxxx");
+						String str2 = new String ("xxxxx");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 3号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 3号柜门打开状态");
+
+						}
+
 					}
 					else if (lock == 4) {
 						Log.e ( "TAG", "Readlock" );
@@ -608,6 +658,30 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("8001040085");
+						String str2 = new String ("8001041194");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 4号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 4号柜门打开状态");
+
+						}
 					}
 					else if (lock == 5) {
 						Log.e ( "TAG", "Readlock" );
@@ -615,6 +689,30 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("8001050084");
+						String str2 = new String ("8001051195");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 5号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 5号柜门打开状态");
+
+						}
 					}
 					else if (lock == 6) {
 						Log.e ( "TAG", "Readlock" );
@@ -622,6 +720,30 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("8001060087");
+						String str2 = new String ("8001061196");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 6号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 6号柜门打开状态");
+
+						}
 					}
 					else if (lock == 7) {
 						Log.e ( "TAG", "Readlock" );
@@ -629,6 +751,30 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("8001070086");
+						String str2 = new String ("8001071197");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 7号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 7号柜门打开状态");
+
+						}
 					}
 					else if (lock == 8) {
 						Log.e ( "TAG", "Readlock" );
@@ -636,6 +782,30 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("8001080089");
+						String str2 = new String ("8001081198");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 8号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 8号柜门打开状态");
+
+						}
 					}
 					else if (lock == 9) {
 						Log.e ( "TAG", "Readlock" );
@@ -643,11 +813,59 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("8001090088");
+						String str2 = new String ("8001091199");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 9号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 9号柜门打开状态");
+
+						}
 					}
 					else if (lock == 10) {
 						Log.e ( "TAG", "Readlock" );
 						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010A33B8" );
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("xxx");
+						String str2 = new String ("xxx");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 10号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 10号柜门打开状态");
+
+						}
 					}
 					else if (lock == 11) {
 						Log.e ( "TAG", "Readlock" );
@@ -655,6 +873,30 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("80010B008A");
+						String str2 = new String ("80010B119B");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 11号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 11号柜门打开状态");
+
+						}
 					}
 					else if (lock == 12) {
 						Log.e ( "TAG", "Readlock" );
@@ -662,11 +904,59 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("80010C008D");
+						String str2 = new String ("80010C119C");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 12号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 12号柜门打开状态");
+
+						}
 					}
 					else if (lock == 13) {
 						Log.e ( "TAG", "Readlock" );
 						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010D33BF" );
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("xxx");
+						String str2 = new String ("xxx");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 13号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 13号柜门打开状态");
+
+						}
 					}
 					else if (lock == 14) {
 						Log.e ( "TAG", "Readlock" );
@@ -674,6 +964,30 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("80010E008F");
+						String str2 = new String ("80010E119E");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 14号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 14号柜门打开状态");
+
+						}
 					}
 					else if (lock == 15) {
 						Log.e ( "TAG", "Readlock" );
@@ -681,6 +995,30 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("80010F008E");
+						String str2 = new String ("80010F119F");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 15号柜门关闭状态");
+							Log.e ( "TAG", "if里str1 "+str );
+
+						}
+						else if (str.equals(str2))
+						{
+							myTextView.setText ( "您选择的柜门状态是: 15号柜门打开状态");
+						}
 					}
 					else if (lock == 16) {
 						Log.e ( "TAG", "Readlock" );
@@ -688,6 +1026,30 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("8001100091");
+						String str2 = new String ("8001101180");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 1号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 16号柜门打开状态");
+
+						}
 					}
 					else if (lock == 17) {
 						Log.e ( "TAG", "Readlock" );
@@ -695,6 +1057,29 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("8001110090");
+						String str2 = new String ("8001111181");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 17号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals ( str2)){
+							myTextView.setText ( "您选择的柜门状态是: 17号柜门打开状态");
+						}
 					}
 					else if (lock == 18) {
 						Log.e ( "TAG", "Readlock" );
@@ -702,6 +1087,30 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("8001120093");
+						String str2 = new String ("8001121182");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 18号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 18号柜门打开状态");
+
+						}
 					}
 					else if (lock == 19) {
 						Log.e ( "TAG", "Readlock" );
@@ -709,6 +1118,30 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("8001130092");
+						String str2 = new String ("8001131183");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 19号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 19号柜门打开状态");
+
+						}
 					}
 					else if (lock == 20) {
 						Log.e ( "TAG", "Readlock" );
@@ -716,6 +1149,30 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("8001140095");
+						String str2 = new String ("8001141184");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 20号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 20号柜门打开状态");
+
+						}
 					}
 					else if (lock == 21) {
 						Log.e ( "TAG", "Readlock" );
@@ -723,6 +1180,30 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("8001150094");
+						String str2 = new String ("8001151185");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 21号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 21号柜门打开状态");
+
+						}
 					}
 					else if (lock == 22) {
 						Log.e ( "TAG", "Readlock" );
@@ -730,6 +1211,30 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("8001160097");
+						String str2 = new String ("8001161186");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 22号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 22号柜门打开状态");
+
+						}
 					}
 					else if (lock == 23) {
 						Log.e ( "TAG", "Readlock" );
@@ -737,6 +1242,30 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("8001170096");
+						String str2 = new String ("8001171187");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 23号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 23号柜门打开状态");
+
+						}
 					}
 					else if (lock == 24) {
 						Log.e ( "TAG", "Readlock" );
@@ -744,6 +1273,29 @@ public class ComAssistantActivity extends Activity {
 						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
 						mOutputStream.write(bufOpenlock);
 						mOutputStream.flush ();
+						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+
+						mOutputStream = mSerialPort.getOutputStream ();
+						mInputStream = mSerialPort.getInputStream ();
+
+
+						byte[] buffer=new byte[512];
+						int size = mInputStream.read(buffer);
+						String str = MyFunc.ByteArrToHex ( buffer,0, size );
+						Log.e ( "TAG", "if外 "+str );
+						String str1 = new String ("8001180099");
+						String str2 = new String ("8001181188");
+
+						if (str.equals(str1)) {
+//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
+							myTextView.setText ( "您选择的柜门状态是: 24号柜门关闭状态");
+							Log.e ( "TAG", "if里 "+str );
+
+						}
+						else if (str.equals(str2)){
+							myTextView.setText ( "您选择的柜门状态是: 24号柜门打开状态");
+
+						}
 					}
 
 
