@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bjw.ComAssistant.test">
+    package="com.bjw.ComAssistant1.test">
 
     <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="10" />
 
@@ -9,8 +9,8 @@
     </application>
 
     <instrumentation android:name="android.test.InstrumentationTestRunner"
-                     android:targetPackage="com.bjw.ComAssistant"
+                     android:targetPackage="com.bjw.ComAssistant1"
                      android:handleProfiling="false"
                      android:functionalTest="false"
-                     android:label="Tests for com.bjw.ComAssistant"/>
+                     android:label="Tests for com.bjw.ComAssistant1"/>
 </manifest>

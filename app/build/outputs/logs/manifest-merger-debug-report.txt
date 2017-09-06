@@ -2,7 +2,7 @@
 manifest
 ADDED from C:\APP_Projects\ComAssistant-master\app\src\main\AndroidManifest.xml:3:1-70:12
 	package
-		ADDED from C:\APP_Projects\ComAssistant-master\app\src\main\AndroidManifest.xml:4:5-35
+		ADDED from C:\APP_Projects\ComAssistant-master\app\src\main\AndroidManifest.xml:4:5-36
 		INJECTED from C:\APP_Projects\ComAssistant-master\app\src\main\AndroidManifest.xml
 		INJECTED from C:\APP_Projects\ComAssistant-master\app\src\main\AndroidManifest.xml
 	android:versionName
@@ -69,7 +69,7 @@ ADDED from C:\APP_Projects\ComAssistant-master\app\src\main\AndroidManifest.xml:
 		ADDED from C:\APP_Projects\ComAssistant-master\app\src\main\AndroidManifest.xml:27:9-41
 	android:icon
 		ADDED from C:\APP_Projects\ComAssistant-master\app\src\main\AndroidManifest.xml:26:9-45
-activity#com.bjw.ComAssistant.ComAssistantActivity
+activity#com.bjw.ComAssistant1.ComAssistantActivity
 ADDED from C:\APP_Projects\ComAssistant-master\app\src\main\AndroidManifest.xml:28:9-37:20
 	android:label
 		ADDED from C:\APP_Projects\ComAssistant-master\app\src\main\AndroidManifest.xml:29:13-45

@@ -7,7 +7,7 @@ android {
 //    multiDexEnabled true
 
     defaultConfig {
-        applicationId "com.bjw.ComAssistant"
+        applicationId "com.bjw.ComAssistant1"
         minSdkVersion 10
         targetSdkVersion 10
         compileOptions {

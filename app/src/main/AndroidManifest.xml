@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--suppress AndroidDomInspection -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bjw.ComAssistant"
+    package="com.bjw.ComAssistant1"
 
     xmlns:tools="http://schemas.android.com/tools"
 
