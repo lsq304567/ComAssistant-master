@@ -1,12 +1,14 @@
 package com.bjw.ComAssistant1;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -42,6 +44,8 @@ import java.util.List;
 import android_serialport_api.SerialPort;
 import android_serialport_api.SerialPortFinder;
 
+import static java.lang.Thread.sleep;
+
 
 /**
  * serialport api和jni取自http://code.google.com/p/android-serialport-api/
@@ -54,7 +58,7 @@ public class ComAssistantActivity extends Activity {
 	//	EditText editTextCOMB;
 //	EditText editTextTimeCOMB;
 	EditText mReception, mEmission;
-	TextView myTextView;
+	TextView myTextView,myTextViewReadlock,myTextViewaddr;
 //	CheckBox checkBoxAutoCOMB;
 	Button ButtonChecklock,Openlock,Readlock,Readinfrared;
 //	ToggleButton toggleButtonCOMB;
@@ -68,7 +72,7 @@ public class ComAssistantActivity extends Activity {
 //	DispQueueThread DispQueue;//刷新显示线程
 	SerialPortFinder mSerialPortFinder;//串口设备搜索
 	AssistBean AssistData;//用于界面数据序列化和反序列化
-	int iRecLines=0;//接收区行数
+//	int iRecLines=0;//接收区行数
 	private SerialPort mSerialPort;
 	private OutputStream mOutputStream;
 	private InputStream mInputStream;
@@ -83,6 +87,9 @@ public class ComAssistantActivity extends Activity {
 //    SerialPort sp;
 //	private Button Button485jc_1, Button485jc_2;
 	/** Called when the activity is first created. */
+/*------------------------------------------------------------------*/
+
+/*------------------------------------------------------------------*/
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -131,11 +138,13 @@ public class ComAssistantActivity extends Activity {
 		listbps.add(115200);
 
 
+
 		Spinnerlock  = (Spinner)findViewById(R.id.SpinnerOpenlockid);
 		Spinnerbps   = (Spinner)findViewById(R.id.Spinnerbpsid);
 		Openlock     = (Button)findViewById(R.id.Openlockid);
 		Readlock     = (Button)findViewById(R.id.Readlockid);
 		Readinfrared = (Button)findViewById(R.id.Readinfraredid);
+		ButtonChecklock=(Button)findViewById(R.id.ButtonChecklockid);
 
 		adapter = new ArrayAdapter<Integer> (this,android.R.layout.simple_spinner_item, list);
 		adapterbps = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, listbps);
@@ -146,18 +155,20 @@ public class ComAssistantActivity extends Activity {
 		Spinnerlock.setAdapter(adapter);
 		Spinnerbps.setAdapter(adapterbps);
 
-		myTextView = (TextView) findViewById(R.id.myTextViewid);
-
+		myTextView         = (TextView) findViewById(R.id.myTextViewid);
+		myTextViewReadlock = (TextView) findViewById(R.id.myTextViewReadlockid);
+		myTextViewaddr     = (TextView) findViewById(R.id.myTextViewaddrid);
 /*------------------------------------------------------------------------------------------*/
 		Spinnerlock.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				// TODO Auto-generated method stub
                 /* 将所选mySpinner 的值带入myTextView 中*/
-				myTextView.setText("您选择的锁号是："+ adapter.getItem(arg2));
+				lock = adapter.getItem(arg2);
+				myTextView.setText("您选择的锁号是："+ lock);
                 /* 将mySpinner 显示*/
 				arg0.setVisibility(View.VISIBLE);
 
-				lock = adapter.getItem(arg2);
+//				lock = adapter.getItem(arg2);
 
 
 			}
@@ -168,6 +179,21 @@ public class ComAssistantActivity extends Activity {
 				arg0.setVisibility(View.VISIBLE);
 			}
 		});
+
+
+//		Spinnerlock.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener () {
+//			@Override
+//			public void onItemSelected(AdapterView<?> parent, View view,
+//									   int pos, long id) {
+//
+//				String[] languages = getResources().getStringArray(R.array.languages);
+//				Toast.makeText(MainActivity.this, "你点击的是:"+languages[pos], 2000).show();
+//			}
+//			@Override
+//			public void onNothingSelected(AdapterView<?> parent) {
+//				// Another interface callback
+//			}
+//		});
 /*------------------------------------------------------------------------------------------*/
 		Spinnerbps.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -274,269 +300,88 @@ public class ComAssistantActivity extends Activity {
 			}
 		});
 /*------------------------------------------------------------------------------------------*/
-
-
-//		try {
-//			mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), 9600, 0);
-//			mOutputStream = mSerialPort.getOutputStream();
-//		} catch (IOException e) {
-//			e.printStackTrace ();
-//		}
-
-//		ButtonOpenlock1_1.setOnClickListener(new View.OnClickListener() {
-//			public Object bOutArray;
-//
-//			@Override
-//			public void onClick(View v) {
-//
-////                ButtonChecklock.setText("8001009918");
-//
-////				onDataReceived(ComRecData);
-////				ButtonChecklock.setText("8001009918");
-////				sendPortData(ComB, "8001009918");//没有效果
-////				setSendData(ButtonChecklock);
-//
-////				mReception = (EditText) findViewById(R.id.EditTextReception);
-////				mEmission = (EditText) findViewById(R.id.EditTextEmission);
-//
-////				String text = mEmission.getText().toString();
-////                String text = "8001009918";
-//
-////                try {
-////                    mOutputStream.write(new String(text).getBytes());
-////                    mOutputStream.write('\n');
-////                } catch (IOException e) {
-////                    e.printStackTrace();
-////                }
-//				//发送指令
-////				mEmission.setText("8001009918");
-////                setSendData();
-////                SetLoopData(ComB, text);
-////				sendPortData(ComB, "8001009918");//没有效果
-////                SetLoopData(ComB,"8001009918");
-////                SetAutoSend(ComB,isChecked);
-////                i = inputStream.read();
-////                outputStream.write(i);
-//
-////                sendPortData.ComPort.sendHex.send.mOutputStream.write("8001009918");
-////                inputStream.close();
-////                outputStream.close();public void send(byte[] bOutArray){
-//
-////                mOutputStream = mSerialPort.getOutputStream();
-//
-//
-//				try
-//				{
-//					Log.e ( "TAG", "ButtonOpenlock" );
-//
-//
-////                    byte[] buf= new byte[]{(byte) (byte) 0x80, (byte) 0x01,(byte) 0x00, (byte) 0x99, (byte) 0x18};
-//
-//					byte[] buf = MyFunc.HexToByteArr ( "8A0101119B" );
-////                    buf = MyFunc.HexToByteArr ( "8001009918" );
-//					Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
-//
-//					mOutputStream.write(buf);
-//					mOutputStream.flush ();
-//
-//				} catch (IOException e)
-//				{
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-		ButtonChecklock.setOnClickListener ( new View.OnClickListener (){
-			@Override
-			public void onClick(View v) {
-				try
-				{
-					Log.e ( "TAG", "ButtonChecklock" );
-
-
-//                    byte[] buf= new byte[]{(byte) (byte) 0x80, (byte) 0x01,(byte) 0x00, (byte) 0x99, (byte) 0x18};
-
-//                    buf = MyFunc.HexToByteArr ( "8A0101119B" );
-					byte[] buf = MyFunc.HexToByteArr ( "8001009918" );
-					Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
-
-					mOutputStream.write(buf);
-					mOutputStream.flush ();
-
-				} catch (IOException e)
-				{
-					e.printStackTrace();
-				}
-			}
-		} ) ;
-
 		Openlock.setOnClickListener ( new View.OnClickListener () {
 			@Override
 			public void onClick(View v) {
 				try
 				{
+					byte[] bufOpenlock = null;
 					if (lock == 1) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0101119B" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A0101119B" );
 					}
 					else if (lock == 2) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A01021198" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A01021198" );
 					}
 					else if (lock == 3) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A01031199" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						bufOpenlock = MyFunc.HexToByteArr ( "8A01031199" );
 					}
 					else if (lock == 4) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0104119E" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A0104119E" );
 					}
 					else if (lock == 5) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0105119F" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A0105119F" );
 					}
 					else if (lock == 6) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0106119C" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A0106119C" );
 					}
 					else if (lock == 7) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0107119D" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A0107119D" );
 					}
 					else if (lock == 8) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A01081192" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A01081192" );
 					}
 					else if (lock == 9) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A01091193" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A01091193" );
 					}
 					else if (lock == 10) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A010A1190" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						bufOpenlock = MyFunc.HexToByteArr ( "8A010A1190" );
 					}
 					else if (lock == 11) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A010B1191" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A010B1191" );
 					}
 					else if (lock == 12) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A010C1196" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A010C1196" );
 					}
 					else if (lock == 13) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A010D1197" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+						bufOpenlock = MyFunc.HexToByteArr ( "8A010D1197" );
 					}
 					else if (lock == 14) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A010E1194" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A010E1194" );
 					}
 					else if (lock == 15) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A010F1195" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A010F1195" );
 					}
 					else if (lock == 16) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0110118A" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A0110118A" );
 					}
 					else if (lock == 17) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0111118B" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A0111118B" );
 					}
 					else if (lock == 18) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A01121188" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A01121188" );
 					}
 					else if (lock == 19) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A01131189" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A01131189" );
 					}
 					else if (lock == 20) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0114118E" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A0114118E" );
 					}
 					else if (lock == 21) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0115118F" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A0115118F" );
 					}
 					else if (lock == 22) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0116118C" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A0116118C" );
 					}
 					else if (lock == 23) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A0117118D" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A0117118D" );
 					}
 					else if (lock == 24) {
-						Log.e ( "TAG", "Openlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "8A01181182" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
+						bufOpenlock = MyFunc.HexToByteArr ( "8A01181182" );
 					}
-
+					Log.e ( "TAG", "Openlock" );
+					Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
+					mOutputStream.write(bufOpenlock);
+					mOutputStream.flush ();
 
 				} catch (IOException e)
 				{
@@ -549,748 +394,237 @@ public class ComAssistantActivity extends Activity {
 		Readlock.setOnClickListener ( new View.OnClickListener () {
 			@Override
 			public void onClick(View v) {
-				try
-				{
-					mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-					mOutputStream = mSerialPort.getOutputStream ();
-					mInputStream = mSerialPort.getInputStream ();
 
-					byte[] buffer=new byte[512];
-					int size = mInputStream.read(buffer);
-					String str = MyFunc.ByteArrToHex ( buffer,0, size );
+				mOutputStream = mSerialPort.getOutputStream ();
+				mInputStream = mSerialPort.getInputStream ();
+				String str = "aa";
+				String str1 = null;
+				String str2 = null;
+				byte[] bufReadlock = null;
+				byte[] buffer = null;
 
+				try {
+
+//					byte[] bufReadlock = null;
+//					byte[] buffer = null;
+//					mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
 					if (lock == 1) {
-
-
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010133B3" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-//						StringBuilder sMsg= null;
-//						ComBean ComRecData = null;
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-//						sMsg = new StringBuilder();
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("8001010080");
-						String str2 = new String ("8001011191");
-
-
-
-//						ComRecData = new ComBean (sPort,buffer,size);
-//
-//						myTextView.setText("您选择的柜门状态是："+ (sMsg.append(MyFunc.ByteArrToHex(ComRecData.bRec))));
+						bufReadlock = MyFunc.HexToByteArr ( "80010133B3" );
+						str1 = new String ("8001010080");
+						str2 = new String ("8001011191");
 					}
 					else if (lock == 2) {
-
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010233B0" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("8001020083");
-						String str2 = new String ("8001021192");
-
-						if (str.equals(str2)) {
-							myTextView.setText ( "您选择的柜门状态是: 2号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 1号柜门打开状态");
-
-						}
-
+						bufReadlock = MyFunc.HexToByteArr ( "80010233B0" );
+						str1 = new String ("8001020083");
+						str2 = new String ("8001021192");
 					}
 					else if (lock == 3) {
-
-
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010333B1" );
-						mOutputStream.write(bufOpenlock);
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String strClose1 = new String ("8001031193");
-						String strOpen2 = new String ("8001030082");
-
-						//"9A01969994".equals ( str )
-
-						if (strClose1.equals(str)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 3号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (strOpen2.equals(str)){
-							myTextView.setText ( "您选择的柜门状态是: 3号柜门打开状态");
-
-						}
-
+						bufReadlock = MyFunc.HexToByteArr ( "80010333B1" );
+						str1 = new String ("8001030082");
+						str2 = new String ("8001031193");
 					}
 					else if (lock == 4) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010433B6" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("8001040085");
-						String str2 = new String ("8001041194");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 4号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 4号柜门打开状态");
-
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80010433B6" );
+						str1 = new String ("8001040085");
+						str2 = new String ("8001041194");
 					}
 					else if (lock == 5) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010533B7" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("8001050084");
-						String str2 = new String ("8001051195");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 5号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 5号柜门打开状态");
-
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80010533B7" );
+						str1 = new String ("8001050084");
+						str2 = new String ("8001051195");
 					}
 					else if (lock == 6) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010633B4" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("8001060087");
-						String str2 = new String ("8001061196");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 6号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 6号柜门打开状态");
-
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80010633B4" );
+						str1 = new String ("8001060087");
+						str2 = new String ("8001061196");
 					}
 					else if (lock == 7) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010733B5" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("8001070086");
-						String str2 = new String ("8001071197");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 7号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 7号柜门打开状态");
-
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80010733B5" );
+						str1 = new String ("8001070086");
+						str2 = new String ("8001071197");
 					}
 					else if (lock == 8) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010833BA" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("8001080089");
-						String str2 = new String ("8001081198");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 8号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 8号柜门打开状态");
-
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80010833BA" );
+						str1 = new String ("8001080089");
+						str2 = new String ("8001081198");
 					}
 					else if (lock == 9) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010933BB" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-//
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("8001090088");
-						String str2 = new String ("8001091199");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 9号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 9号柜门打开状态");
-
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80010933BB" );
+						str1 = new String ("8001090088");
+						str2 = new String ("8001091199");
 					}
 					else if (lock == 10) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010A33B8" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-//
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("xxx");
-						String str2 = new String ("xxx");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 10号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 10号柜门打开状态");
-
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80010A33B8" );
+						str1 = new String ("80010A008B");
+						str2 = new String ("80010A119A");
 					}
 					else if (lock == 11) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010B33B9" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("80010B008A");
-						String str2 = new String ("80010B119B");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 11号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 11号柜门打开状态");
-
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80010B33B9" );
+						str1 = new String ("80010B008A");
+						str2 = new String ("80010B119B");
 					}
 					else if (lock == 12) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010C33BE" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-//
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("80010C008D");
-						String str2 = new String ("80010C119C");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 12号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 12号柜门打开状态");
-
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80010C33BE" );
+						str1 = new String ("80010C008D");
+						str2 = new String ("80010C119C");
 					}
 					else if (lock == 13) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010D33BF" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("xxx");
-						String str2 = new String ("xxx");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 13号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 13号柜门打开状态");
-
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80010D33BF" );
+						str1 = new String ("80010D008C");
+						str2 = new String ("80010D119D");
 					}
 					else if (lock == 14) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010E33BC" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("80010E008F");
-						String str2 = new String ("80010E119E");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 14号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 14号柜门打开状态");
-
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80010E33BC" );
+						str1 = new String ("80010E008F");
+						str2 = new String ("80010E119E");
 					}
 					else if (lock == 15) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80010F33BD" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("80010F008E");
-						String str2 = new String ("80010F119F");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 15号柜门关闭状态");
-							Log.e ( "TAG", "if里str2 "+str );
-
-						}
-						else if (str.equals(str1))
-						{
-							myTextView.setText ( "您选择的柜门状态是: 15号柜门打开状态");
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80010F33BD" );
+						str1 = new String ("80010F008E");
+						str2 = new String ("80010F119F");
 					}
 					else if (lock == 16) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011033A2" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("8001100091");
-						String str2 = new String ("8001101180");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 1号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 16号柜门打开状态");
-
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80011033A2" );
+						str1 = new String ("8001100091");
+						str2 = new String ("8001101180");
 					}
 					else if (lock == 17) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011133A3" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("8001110090");
-						String str2 = new String ("8001111181");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 17号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals ( str1)){
-							myTextView.setText ( "您选择的柜门状态是: 17号柜门打开状态");
-						}
+//						Log.e ( "TAG", "Readlock" );
+						bufReadlock = MyFunc.HexToByteArr ( "80011133A3" );
+						str1 = new String ("8001110090");
+						str2 = new String ("8001111181");
 					}
 					else if (lock == 18) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011233A0" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("8001120093");
-						String str2 = new String ("8001121182");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 18号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 18号柜门打开状态");
-
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80011233A0" );
+						str1 = new String ("8001120093");
+						str2 = new String ("8001121182");
 					}
 					else if (lock == 19) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011333A1" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("8001130092");
-						String str2 = new String ("8001131183");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 19号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 19号柜门打开状态");
-
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80011333A1" );
+						str1 = new String ("8001130092");
+						str2 = new String ("8001131183");
 					}
 					else if (lock == 20) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011433A6" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("8001140095");
-						String str2 = new String ("8001141184");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 20号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 20号柜门打开状态");
-
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80011433A6" );
+						str1 = new String ("8001140095");
+						str2 = new String ("8001141184");
 					}
 					else if (lock == 21) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011533A7" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("8001150094");
-						String str2 = new String ("8001151185");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 21号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 21号柜门打开状态");
-
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80011533A7" );
+						str1 = new String ("8001150094");
+						str2 = new String ("8001151185");
 					}
 					else if (lock == 22) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011633A4" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("8001160097");
-						String str2 = new String ("8001161186");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 22号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 22号柜门打开状态");
-
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80011633A4" );
+						str1 = new String ("8001160097");
+						str2 = new String ("8001161186");
 					}
 					else if (lock == 23) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011733A5" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
-						mOutputStream.flush ();
-
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
-//
-
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("8001170096");
-						String str2 = new String ("8001171187");
-
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 23号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 23号柜门打开状态");
-
-						}
+						bufReadlock = MyFunc.HexToByteArr ( "80011733A5" );
+						str1 = new String ("8001170096");
+						str2 = new String ("8001171187");
 					}
 					else if (lock == 24) {
-						Log.e ( "TAG", "Readlock" );
-						byte[] bufOpenlock = MyFunc.HexToByteArr ( "80011833AA" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( bufOpenlock ) );
-						mOutputStream.write(bufOpenlock);
+						bufReadlock = MyFunc.HexToByteArr ( "80011833AA" );
+						str1 = new String ("8001180099");
+						str2 = new String ("8001181188");
+
+					}
+					str = MyFunc.ByteArrToHex ( bufReadlock );
+
+//					sleep(50);//50ms
+					Log.e ( "TAG", "写之前 读柜门状态：" + bufReadlock +" 值转换： "+ str +" 锁号: "+ lock);
+//					str = MyFunc.ByteArrToHex ( bufReadlock );
+					int size, i;
+					for (i = 0; i < 1; i++) {
+
+						mOutputStream.write ( bufReadlock );
 						mOutputStream.flush ();
-//						mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
-//
-//						mOutputStream = mSerialPort.getOutputStream ();
-//						mInputStream = mSerialPort.getInputStream ();
+						Log.e ( "TAG", "写之后 读柜门状态：" + str + " 锁号: " + lock );
 
+						buffer = new byte[512];
+						size = mInputStream.read ( buffer );
+						str = MyFunc.ByteArrToHex ( buffer, 0, size );
 
-//						byte[] buffer=new byte[512];
-//						int size = mInputStream.read(buffer);
-//						String str = MyFunc.ByteArrToHex ( buffer,0, size );
-						Log.e ( "TAG", "if外 "+str );
-						String str1 = new String ("8001180099");
-						String str2 = new String ("8001181188");
+						Log.e ( "TAG", "读之后 读柜门状态：" + size + " 锁号: " + str );
 
-						if (str.equals(str2)) {
-//							myTextView.setText ( "您选择的柜门状态是: "+ MyFunc.ByteArrToHex ( buffer,0, size ) );
-							myTextView.setText ( "您选择的柜门状态是: 24号柜门关闭状态");
-							Log.e ( "TAG", "if里 "+str );
-
-						}
-						else if (str.equals(str1)){
-							myTextView.setText ( "您选择的柜门状态是: 24号柜门打开状态");
-
+						if (str.equals ( str1 )) {
+							myTextViewReadlock.setText ( "检测柜门状态: " + lock + "号柜门打开状态" );
+						} else if (str.equals ( str2 )) {
+							myTextViewReadlock.setText ( "检测柜门状态: " + lock + "号柜门关闭状态" );
+						} else {
+							mInputStream.close ();
+							mOutputStream.close ();
+							i = 0;
 						}
 					}
-
-
-				} catch (IOException e)
-				{
-					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace ();
 				}
 
-			}
+
+				}
+
 		} );
+		ButtonChecklock.setOnClickListener(new View.OnClickListener (){
+//			ButtonChecklock
+			@Override
+			public void onClick(View v) {
+				String str  = "aa";
+				String str1 = null;
+				String str2 = null;
+				String str3 = null;
+				String str4 = null;
+				mOutputStream = mSerialPort.getOutputStream ();
+				mInputStream = mSerialPort.getInputStream ();
+
+				try {
+
+					str = null;
+					str1 = new String ("8001019919");
+					str2 = new String ("800102991A");
+					str3 = new String ("800103991B");
+					str4 = new String ("800104991C");
+
+					byte[] bufChecklock = null;
+					byte[] buffer = null;
+
+					bufChecklock = MyFunc.HexToByteArr ( "8001009918" );
+					Log.e ( "TAG", "Openlock" );
+					str = MyFunc.ByteArrToHex ( bufChecklock );
+					Log.e ( "TAG", "板地址检测值："+str+" 写之前的原始值 "+bufChecklock);
+					int size, size1, i;
+					for (i = 0; i < 1; i++) {
+
+					mOutputStream.write(bufChecklock);
+					mOutputStream.flush ();
+
+					buffer = new byte[512];
+
+					size = mInputStream.read(buffer);
+					str = MyFunc.ByteArrToHex ( buffer,0, size );
+					Log.e ( "TAG", "板地址值："+str+ " 读之后的原始值size " +size+ " 读之后的原始值bufOpenlock " +bufChecklock);
+
+					if (str.equals ( str1 )) {
+						myTextViewaddr.setText ( "检测板地址: 1号板" );
+					} else if (str.equals ( str2 )) {
+						myTextViewaddr.setText ( "检测板地址: 2号板" );
+					} else if (str.equals ( str3 )) {
+						myTextViewaddr.setText ( "检测板地址: 3号板" );
+					} else if (str.equals ( str4 )) {
+						myTextViewaddr.setText ( "检测板地址: 4号板" );
+					} else {
+						mInputStream.close ();
+						mOutputStream.close ();
+						i = 0;
+					}
+				}
+				} catch (IOException e) {
+					e.printStackTrace ();
+				}
+			}
+//
+		});
 /*--------------------------------读红外状态-----------------------------------------*/
 		Readinfrared.setOnClickListener ( new View.OnClickListener () {
 			@Override
@@ -1532,6 +866,8 @@ public class ComAssistantActivity extends Activity {
 		AseoZdpAseo.initFinalTimer(this);;
 		startActivity(intent);
 	}
+
+
 	//----------------------------------------------------
 	private void setControls()
 	{
@@ -1558,7 +894,7 @@ public class ComAssistantActivity extends Activity {
 //		ButtonClear=(Button)findViewById(R.id.ButtonClear);
 //		ButtonSendCOMA=(Button)findViewById(R.id.ButtonSendCOMA);
 //		ButtonSendCOMB=(Button)findViewById(R.id.ButtonSendCOMB);
-		ButtonChecklock=(Button)findViewById(R.id.ButtonChecklockid);/*--------------------------------------------------------------*/
+		/*--------------------------------------------------------------*/
 //		ButtonOpenlock1_1=(Button)findViewById(R.id.ButtonOpenlockid1_1);
 
 //		toggleButtonCOMA=(ToggleButton)findViewById(R.id.toggleButtonCOMA);

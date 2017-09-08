@@ -12,7 +12,15 @@
                     "endOffset": 920
                 },
                 "from": {
-                    "file": "C:\\APP_Projects\\ComAssistant-master\\app\\src\\main\\res\\values\\baudrates.xml"
+                    "file": "C:\\APP_Projects\\ComAssistant-master\\app\\src\\main\\res\\values\\baudrates.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 56,
+                        "endLine": 34,
+                        "endColumn": 19,
+                        "endOffset": 921
+                    }
                 }
             },
             {
@@ -25,7 +33,15 @@
                     "endOffset": 1791
                 },
                 "from": {
-                    "file": "C:\\APP_Projects\\ComAssistant-master\\app\\src\\main\\res\\values\\baudrates.xml"
+                    "file": "C:\\APP_Projects\\ComAssistant-master\\app\\src\\main\\res\\values\\baudrates.xml",
+                    "position": {
+                        "startLine": 35,
+                        "startColumn": 4,
+                        "startOffset": 926,
+                        "endLine": 66,
+                        "endColumn": 19,
+                        "endOffset": 1792
+                    }
                 }
             },
             {
@@ -41,9 +57,9 @@
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
-                        "startOffset": 125,
+                        "startOffset": 129,
                         "endColumn": 50,
-                        "endOffset": 171
+                        "endOffset": 175
                     }
                 }
             },
@@ -56,7 +72,14 @@
                     "endOffset": 1911
                 },
                 "from": {
-                    "file": "C:\\APP_Projects\\ComAssistant-master\\app\\src\\main\\res\\values\\strings.xml"
+                    "file": "C:\\APP_Projects\\ComAssistant-master\\app\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 59,
+                        "endColumn": 68,
+                        "endOffset": 123
+                    }
                 }
             }
         ]
