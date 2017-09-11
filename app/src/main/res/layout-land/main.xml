@@ -77,7 +77,7 @@
                         android:id="@+id/ButtonChecklockid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="本地址查询"/>
+                        android:text="板地址查询"/>
 
                 </LinearLayout>
 

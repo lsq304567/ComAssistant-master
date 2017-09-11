@@ -79,7 +79,7 @@ public class ComAssistantActivity extends Activity {
 
 	private ArrayAdapter<Integer> adapter;
 	private ArrayAdapter<Integer> adapterbps;
-	int bps,lock;
+	int bps,lock,lockaddr;
 //	String lock;
 //    EditText mReception;
 //    FileOutputStream mOutputStream;
@@ -537,10 +537,15 @@ public class ComAssistantActivity extends Activity {
 //					str = MyFunc.ByteArrToHex ( bufReadlock );
 					int size, i;
 					for (i = 0; i < 1; i++) {
-
+						if (lockaddr != 1) {
+//							System.out.printf ("未检测到1号板");
+							myTextViewReadlock.setText ( "检测柜门状态: " + "未检测到1号板" );
+							Log.e ( "TAG", " 读柜门状态：" + lockaddr + "未检测到1号板");
+							continue;
+						}
 						mOutputStream.write ( bufReadlock );
 						mOutputStream.flush ();
-						Log.e ( "TAG", "写之后 读柜门状态：" + str + " 锁号: " + lock );
+						Log.e ( "TAG", "写之后 读柜门状态：" + str + " 锁号: " + lock + str);
 
 						buffer = new byte[512];
 						size = mInputStream.read ( buffer );
@@ -552,7 +557,8 @@ public class ComAssistantActivity extends Activity {
 							myTextViewReadlock.setText ( "检测柜门状态: " + lock + "号柜门打开状态" );
 						} else if (str.equals ( str2 )) {
 							myTextViewReadlock.setText ( "检测柜门状态: " + lock + "号柜门关闭状态" );
-						} else {
+						}
+						else {
 							mInputStream.close ();
 							mOutputStream.close ();
 							i = 0;
@@ -593,8 +599,8 @@ public class ComAssistantActivity extends Activity {
 					Log.e ( "TAG", "Openlock" );
 					str = MyFunc.ByteArrToHex ( bufChecklock );
 					Log.e ( "TAG", "板地址检测值："+str+" 写之前的原始值 "+bufChecklock);
-					int size, size1, i;
-					for (i = 0; i < 1; i++) {
+					int size, j;
+					for (j = 0; j < 2; j++) {
 
 					mOutputStream.write(bufChecklock);
 					mOutputStream.flush ();
@@ -607,16 +613,21 @@ public class ComAssistantActivity extends Activity {
 
 					if (str.equals ( str1 )) {
 						myTextViewaddr.setText ( "检测板地址: 1号板" );
+						lockaddr = 1;
 					} else if (str.equals ( str2 )) {
 						myTextViewaddr.setText ( "检测板地址: 2号板" );
+						lockaddr = 2;
 					} else if (str.equals ( str3 )) {
 						myTextViewaddr.setText ( "检测板地址: 3号板" );
+						lockaddr = 3;
 					} else if (str.equals ( str4 )) {
 						myTextViewaddr.setText ( "检测板地址: 4号板" );
-					} else {
+						lockaddr = 4;
+					}
+					else if (j == 2){
 						mInputStream.close ();
 						mOutputStream.close ();
-						i = 0;
+						j = 0;
 					}
 				}
 				} catch (IOException e) {
