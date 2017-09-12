@@ -87,6 +87,26 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/myTextViewidSerialid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="  设置串口："/>
+
+                    <Spinner
+                        android:id="@+id/SpinnerSeralid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
                         android:id="@+id/myTextViewidbps"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -98,7 +118,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         />
-
 
                 </LinearLayout>
 

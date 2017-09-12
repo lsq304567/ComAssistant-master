@@ -58,14 +58,15 @@ public class ComAssistantActivity extends Activity {
 	//	EditText editTextCOMB;
 //	EditText editTextTimeCOMB;
 	EditText mReception, mEmission;
-	TextView myTextView,myTextViewReadlock,myTextViewaddr;
+	TextView myTextView,myTextViewReadlock,myTextViewaddr,myTextViewSerial;
 //	CheckBox checkBoxAutoCOMB;
 	Button ButtonChecklock,Openlock,Readlock,Readinfrared;
 //	ToggleButton toggleButtonCOMB;
-	Spinner Spinnerlock, Spinnerbps;
+	Spinner Spinnerlock, Spinnerbps, SpinnerSeral;
 //	Spinner SpinnerBaudRateCOMB;
 	private List<Integer> list = new ArrayList<Integer> ();
 	private List<Integer> listbps = new ArrayList<Integer>();
+	private List<String> listserial = new ArrayList<String> ();
 
 	RadioButton radioButtonHex;
 //	SerialControl ComB;//4个串口
@@ -79,7 +80,9 @@ public class ComAssistantActivity extends Activity {
 
 	private ArrayAdapter<Integer> adapter;
 	private ArrayAdapter<Integer> adapterbps;
+	private ArrayAdapter<String> adapterSerial;
 	int bps,lock,lockaddr;
+	String Serial;
 //	String lock;
 //    EditText mReception;
 //    FileOutputStream mOutputStream;
@@ -137,27 +140,68 @@ public class ComAssistantActivity extends Activity {
 		listbps.add(57600);
 		listbps.add(115200);
 
-
+		listserial.add("/dev/ttyGS3");
+		listserial.add("/dev/ttyGS2");
+		listserial.add("/dev/ttyGS1");
+		listserial.add("/dev/ttyGS0");
+		listserial.add("/dev/ttymxc6");
+		listserial.add("/dev/ttymxc5");
+		listserial.add("/dev/ttymxc4");
+		listserial.add("/dev/ttymxc3");
+		listserial.add("/dev/ttymxc2");
+		listserial.add("/dev/ttymxc1");
+		listserial.add("/dev/ttymxc0");
 
 		Spinnerlock  = (Spinner)findViewById(R.id.SpinnerOpenlockid);
 		Spinnerbps   = (Spinner)findViewById(R.id.Spinnerbpsid);
 		Openlock     = (Button)findViewById(R.id.Openlockid);
+		Spinnerlock  = (Spinner)findViewById(R.id.SpinnerOpenlockid);
+		SpinnerSeral = (Spinner)findViewById(R.id.SpinnerSeralid);
 		Readlock     = (Button)findViewById(R.id.Readlockid);
 		Readinfrared = (Button)findViewById(R.id.Readinfraredid);
 		ButtonChecklock=(Button)findViewById(R.id.ButtonChecklockid);
 
 		adapter = new ArrayAdapter<Integer> (this,android.R.layout.simple_spinner_item, list);
 		adapterbps = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, listbps);
+		adapterSerial = new ArrayAdapter<String> (this,android.R.layout.simple_spinner_item, listserial);
 
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		adapterbps.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		adapterSerial.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		Spinnerlock.setAdapter(adapter);
 		Spinnerbps.setAdapter(adapterbps);
+		SpinnerSeral.setAdapter (adapterSerial);
 
 		myTextView         = (TextView) findViewById(R.id.myTextViewid);
 		myTextViewReadlock = (TextView) findViewById(R.id.myTextViewReadlockid);
 		myTextViewaddr     = (TextView) findViewById(R.id.myTextViewaddrid);
+		myTextViewSerial   = (TextView) findViewById(R.id.myTextViewidSerialid);
+
+		SpinnerSeral.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				// TODO Auto-generated method stub
+                /* 将所选mySpinner 的值带入myTextView 中*/
+//				Serial = SpinnerSeral.getItem(arg2);
+                Serial = adapterSerial.getItem(arg2);
+                myTextViewSerial.setText("您选择的串口是："+ Serial);
+
+
+
+                /* 将mySpinner 显示*/
+				arg0.setVisibility(View.VISIBLE);
+
+//				lock = adapter.getItem(arg2);
+
+
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				myTextView.setText("NONE");
+				arg0.setVisibility(View.VISIBLE);
+			}
+		});
 /*------------------------------------------------------------------------------------------*/
 		Spinnerlock.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -204,92 +248,60 @@ public class ComAssistantActivity extends Activity {
 				arg0.setVisibility(View.VISIBLE);
 
 				bps = adapterbps.getItem(arg2);
-
+				byte[] buf = null;
 				try {
-					mSerialPort = new SerialPort (new File ("/dev/ttymxc6"), bps, 0);
+					mSerialPort = new SerialPort (new File (Serial), bps, 0);
 					mOutputStream = mSerialPort.getOutputStream();
+
+
+					if (bps == 9600) {
+						Log.e ( "TAG", "9600" );
+						buf = MyFunc.HexToByteArr ( "9A0196777A" );
+						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+					}
+					else if (bps == 14000) {
+							Log.e ( "TAG", "14000" );
+
+							buf = MyFunc.HexToByteArr ( "9A0114777A" );
+							Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+						}
+					else if (bps == 19200) {
+							Log.e ( "TAG", "19200" );
+
+							buf = MyFunc.HexToByteArr ( "9A0119777A" );
+							Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+
+					}
+					else if (bps == 38400) {
+							Log.e ( "TAG", "38400" );
+
+							buf = MyFunc.HexToByteArr ( "9A0138777A" );
+							Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+					}
+					else if (bps == 57600) {
+							Log.e ( "TAG", "57600" );
+
+							buf = MyFunc.HexToByteArr ( "9A0157777A" );
+							Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+
+					}
+					else if (bps == 115200) {
+							Log.e ( "TAG", "115200" );
+
+							buf = MyFunc.HexToByteArr ( "9A0111777A" );
+							Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
+
+					}
+
+					String bufH = MyFunc.ByteArrToHex ( buf );
+					Log.e ( "TAG", " 设置电子锁的波特率： 传入的十六进制命令： "+ bufH );
+
+					mOutputStream.write(buf);
+					mOutputStream.flush ();
+
 				} catch (IOException e) {
 					e.printStackTrace ();
 				}
-				if (bps == 9600) {
-					try {
-						Log.e ( "TAG", "9600" );
-
-						byte[] buf = MyFunc.HexToByteArr ( "9A0196777A" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
-
-						mOutputStream.write ( buf );
-						mOutputStream.flush ();
-					} catch (IOException e) {
-						e.printStackTrace ();
-					}
-				}
-				else if (bps == 14000) {
-					try {
-						Log.e ( "TAG", "14000" );
-
-						byte[] buf = MyFunc.HexToByteArr ( "9A0114777A" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
-
-						mOutputStream.write ( buf );
-						mOutputStream.flush ();
-					} catch (IOException e) {
-						e.printStackTrace ();
-					}
-				}
-				else if (bps == 19200) {
-					try {
-						Log.e ( "TAG", "19200" );
-
-						byte[] buf = MyFunc.HexToByteArr ( "9A0119777A" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
-
-						mOutputStream.write ( buf );
-						mOutputStream.flush ();
-					} catch (IOException e) {
-						e.printStackTrace ();
-					}
-				}
-				else if (bps == 38400) {
-					try {
-						Log.e ( "TAG", "38400" );
-
-						byte[] buf = MyFunc.HexToByteArr ( "9A0138777A" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
-
-						mOutputStream.write ( buf );
-						mOutputStream.flush ();
-					} catch (IOException e) {
-						e.printStackTrace ();
-					}
-				}
-				else if (bps == 57600) {
-					try {
-						Log.e ( "TAG", "57600" );
-
-						byte[] buf = MyFunc.HexToByteArr ( "9A0157777A" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
-
-						mOutputStream.write ( buf );
-						mOutputStream.flush ();
-					} catch (IOException e) {
-						e.printStackTrace ();
-					}
-				}
-				else if (bps == 115200) {
-					try {
-						Log.e ( "TAG", "115200" );
-
-						byte[] buf = MyFunc.HexToByteArr ( "9A0111777A" );
-						Log.e ( "TAG", MyFunc.ByteArrToHex ( buf ) );
-
-						mOutputStream.write ( buf );
-						mOutputStream.flush ();
-					} catch (IOException e) {
-						e.printStackTrace ();
-					}
-				}
-
 
 			}
 

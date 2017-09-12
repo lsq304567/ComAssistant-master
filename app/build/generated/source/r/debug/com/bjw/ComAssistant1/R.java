@@ -32,7 +32,7 @@ public final class R {
         public static final int LinearLayoutCOMC=0x7f060023;
         public static final int LinearLayoutCOMCD=0x7f060022;
         public static final int LinearLayoutCOMD=0x7f06002f;
-        public static final int LinearLayoutOpenid_1=0x7f060043;
+        public static final int LinearLayoutOpenid_1=0x7f060045;
         public static final int LinearLayoutOption1COMA=0x7f06000e;
         public static final int LinearLayoutOption1COMB=0x7f06001a;
         public static final int LinearLayoutOption1COMC=0x7f060027;
@@ -47,9 +47,9 @@ public final class R {
         public static final int LinearLayoutTooLCOMB=0x7f060018;
         public static final int LinearLayoutTooLCOMC=0x7f060025;
         public static final int LinearLayoutTooLCOMD=0x7f060031;
-        public static final int Openlockid=0x7f060046;
-        public static final int Readinfraredid=0x7f060048;
-        public static final int Readlockid=0x7f060047;
+        public static final int Openlockid=0x7f060048;
+        public static final int Readinfraredid=0x7f06004a;
+        public static final int Readlockid=0x7f060049;
         public static final int SpinnerBaudRateCOMA=0x7f06000f;
         public static final int SpinnerBaudRateCOMB=0x7f06001b;
         public static final int SpinnerBaudRateCOMC=0x7f060028;
@@ -58,8 +58,9 @@ public final class R {
         public static final int SpinnerCOMB=0x7f060019;
         public static final int SpinnerCOMC=0x7f060026;
         public static final int SpinnerCOMD=0x7f060032;
-        public static final int SpinnerOpenlockid=0x7f060045;
-        public static final int Spinnerbpsid=0x7f060042;
+        public static final int SpinnerOpenlockid=0x7f060047;
+        public static final int SpinnerSeralid=0x7f060042;
+        public static final int Spinnerbpsid=0x7f060044;
         public static final int TextView01=0x7f06001f;
         public static final int TextView02=0x7f06002c;
         public static final int TextView03=0x7f060038;
@@ -84,12 +85,13 @@ public final class R {
         public static final int myTextViewReadlockid=0x7f06003f;
         public static final int myTextViewaddrid=0x7f06003d;
         public static final int myTextViewid=0x7f06003e;
-        public static final int myTextViewidbps=0x7f060041;
+        public static final int myTextViewidSerialid=0x7f060041;
+        public static final int myTextViewidbps=0x7f060043;
         public static final int radioButtonHex=0x7f060006;
         public static final int radioButtonTxt=0x7f060005;
         public static final int radioGroupOption=0x7f060004;
         public static final int textView1=0x7f060013;
-        public static final int textViewlock=0x7f060044;
+        public static final int textViewlock=0x7f060046;
         public static final int toggleButtonCOMA=0x7f060010;
     }
     public static final class layout {
