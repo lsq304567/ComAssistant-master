@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout-v11\\notification_template_big_media_narrow_custom.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\c96285c6f9ded196e3460d025bbb1780d3b619cd\\output\\res\\layout-v11\\notification_template_big_media_narrow_custom.xml"
+    },
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout-v11\\notification_template_big_media_narrow.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\c96285c6f9ded196e3460d025bbb1780d3b619cd\\output\\res\\layout-v11\\notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout-v11\\notification_template_big_media.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\c96285c6f9ded196e3460d025bbb1780d3b619cd\\output\\res\\layout-v11\\notification_template_big_media.xml"
+    },
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout-v11\\notification_template_big_media_custom.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\c96285c6f9ded196e3460d025bbb1780d3b619cd\\output\\res\\layout-v11\\notification_template_big_media_custom.xml"
+    },
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout-v11\\notification_media_action.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\c96285c6f9ded196e3460d025bbb1780d3b619cd\\output\\res\\layout-v11\\notification_media_action.xml"
+    },
+    {
+        "merged": "C:\\APP_Projects\\ComAssistant-master\\app\\build\\intermediates\\res\\merged\\debug\\layout-v11\\notification_media_cancel_action.xml",
+        "source": "L:\\Users\\zpj\\.android\\build-cache\\c96285c6f9ded196e3460d025bbb1780d3b619cd\\output\\res\\layout-v11\\notification_media_cancel_action.xml"
+    }
+]
